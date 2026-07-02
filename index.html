@@ -2,12 +2,16 @@
 <html lang="kk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>QAZAQ MAX v2.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>QAZAQ MAX v3.0</title>
+    <link class="apple-touch-icon" href="https://i.postimg.co/N0M7v3m4/messi-wc-nobg.png">
     <style>
         :root {
             --primary-color: #ff3b30;
-            --primary-shadow: rgba(255, 59, 48, 0.6);
+            --bg-color: #050508;
+            --card-bg: #12121a;
+            --text-color: #ffffff;
+            --accent-green: #34c759;
         }
 
         * {
@@ -19,277 +23,324 @@
         }
 
         body {
-            background-color: #0d0202;
-            color: #ffffff;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
-            padding: 15px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .app-container {
-            width: 100%;
-            max-width: 390px;
-            background: linear-gradient(145deg, rgba(30, 10, 10, 0.95), rgba(15, 3, 3, 0.98));
-            border: 2px solid #3a1212;
-            border-radius: 24px;
-            padding: 24px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 59, 48, 0.15);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+        /* ОЙЫН ІШІНДЕ ТЕГІС ТҰРАТЫН СУПЕР ПРИЦЕЛ */
+        .custom-crosshair {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 30px;
+            height: 30px;
+            transform: translate(-50%, -50%); 
+            pointer-events: none;
+            z-index: 999999;
+            display: none;
         }
-
-        .view { display: none; }
-        .view.active { display: block; }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 12px;
-        }
-
-        .status-group {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--primary-color);
+        
+        /* Ортасындағы хедшотқа көздеу нүктесі */
+        .crosshair-dot {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 6px;
+            height: 6px;
+            background-color: #00ffcc; 
             border-radius: 50%;
-            box-shadow: 0 0 8px var(--primary-color);
+            box-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
         }
 
-        .app-title {
-            font-size: 18px;
+        /* Сыртқы лазерлік шеңбер */
+        .crosshair-circle {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            opacity: 0.8;
+            box-shadow: inset 0 0 8px var(--primary-color), 0 0 8px var(--primary-color);
+        }
+
+        /* Пароль сұрайтын бет */
+        #auth-screen {
+            background-color: var(--card-bg);
+            padding: 35px 25px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(255, 59, 48, 0.15);
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+            border: 1px solid #222;
+            z-index: 10;
+        }
+
+        #auth-screen h2 {
+            font-size: 15px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            letter-spacing: 1.5px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 14px;
+            background-color: #1c1c24;
+            border: 2px solid #333;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            text-align: center;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            transition: 0.3s;
+        }
+
+        .password-input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 12px rgba(255, 59, 48, 0.25);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 59, 48, 0.3);
+            transition: 0.2s;
+            text-transform: uppercase;
+        }
+
+        .login-btn:active {
+            transform: scale(0.98);
+            opacity: 0.9;
+        }
+
+        .error-msg {
+            color: var(--primary-color);
+            font-size: 13px;
+            margin-top: 10px;
+            display: none;
+            font-weight: bold;
+        }
+
+        /* Негізгі мәзір */
+        #main-content {
+            display: none;
+            width: 100%;
+            max-width: 380px;
+            z-index: 10;
+        }
+
+        .header-panel {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header-panel h1 {
+            font-size: 26px;
+            color: var(--primary-color);
             font-weight: 900;
             letter-spacing: 1.5px;
+            text-shadow: 0 0 15px rgba(255, 59, 48, 0.4);
+        }
+
+        .header-panel p {
+            font-size: 11px;
+            color: #8e8e93;
+            margin-top: 5px;
             text-transform: uppercase;
         }
 
-        .app-title span {
-            color: var(--primary-color);
-            text-shadow: 0 0 12px var(--primary-shadow);
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 15px;
+            border: 1px solid #222;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
         }
 
-        .input-group {
-            margin-top: 30px;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .text-input {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid #5a1a1a;
-            border-radius: 12px;
-            padding: 14px;
-            color: white;
-            font-size: 16px;
-            text-align: center;
-            outline: none;
-        }
-
-        .text-input:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 10px var(--primary-shadow);
-        }
-
-        .btn-primary {
-            width: 100%;
-            background: linear-gradient(180deg, var(--primary-color) 0%, #000000 200%);
-            border: none;
-            border-radius: 14px;
-            padding: 16px;
-            color: white;
-            font-size: 14px;
-            font-weight: bold;
-            letter-spacing: 1.5px;
-            cursor: pointer;
-            box-shadow: 0 4px 18px var(--primary-shadow);
-            text-transform: uppercase;
-        }
-
-        .toggle-item {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            border-radius: 12px;
-            padding: 13px 16px;
+        .menu-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            padding: 18px 5px;
+            border-bottom: 1px solid #1c1c24;
         }
 
-        .switch input { opacity: 0; width: 0; height: 0; }
-        .switch { position: relative; display: inline-block; width: 46px; height: 24px; }
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .menu-info h3 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #fff;
+        }
+
+        .menu-info p {
+            font-size: 11px;
+            color: #8e8e93;
+            max-width: 240px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 46px;
+            height: 26px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
 
         .slider {
-            position: absolute; cursor: pointer;
+            position: absolute;
+            cursor: pointer;
             top: 0; left: 0; right: 0; bottom: 0;
-            background-color: #331d1d;
-            transition: .3s; border-radius: 24px;
+            background-color: #2c2c35;
+            transition: .3s;
+            border-radius: 34px;
         }
 
         .slider:before {
-            position: absolute; content: "";
-            height: 16px; width: 16px;
-            left: 4px; bottom: 4px;
-            background-color: #999;
-            transition: .3s; border-radius: 50%;
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
         }
 
         input:checked + .slider {
-            background-color: var(--primary-color);
-            box-shadow: 0 0 10px var(--primary-shadow);
+            background-color: var(--accent-green);
+            box-shadow: 0 0 8px var(--accent-green);
         }
 
         input:checked + .slider:before {
-            transform: translateX(22px);
-            background-color: white;
+            transform: translateX(20px);
         }
-
-        .range-container {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            border-radius: 12px;
-            padding: 14px 16px;
-            margin-bottom: 12px;
-        }
-
-        .range-header {
-            display: flex;
-            justify-content: space-between;
-            font-size: 13px;
-            font-weight: bold;
-            color: #b0b0b0;
-            margin-bottom: 10px;
-        }
-
-        .range-slider {
-            -webkit-appearance: none;
-            width: 100%; height: 4px;
-            background: #331d1d; outline: none;
-        }
-
-        .range-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 16px; height: 16px;
-            border-radius: 50%;
-            background: var(--primary-color);
-            box-shadow: 0 0 8px var(--primary-color);
-            cursor: pointer;
-        }
-
-        .error-msg { color: #ff3b30; font-size: 13px; margin-top: 10px; display: none; }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
-        
-        <!-- ЖҮЙЕГЕ КІРУ ЕКРАНЫ -->
-        <div id="lockView" class="view active">
-            <div class="header">
-                <div class="status-group">
-                    <div class="status-dot"></div>
-                    <div class="app-title">QAZAQ <span>MAX</span></div>
-                </div>
-                <div class="version-tag">v2.0</div>
-            </div>
-            
-            <div class="input-group">
-                <label style="font-size: 13px; color: #d0d0d0; display:block; margin-bottom:12px;">ЖҮЙЕГЕ КІРУ ПАРОЛІН ЕНГІЗІҢІЗ</label>
-                <input type="text" id="passwordInput" class="text-input" placeholder="Пароль">
-                <div id="passwordError" class="error-msg">Қате пароль! Қайта тексеріңіз.</div>
-            </div>
+    <!-- ПРИЦЕЛ -->
+    <div class="custom-crosshair" id="crosshair">
+        <div class="crosshair-circle"></div>
+        <div class="crosshair-dot"></div>
+    </div>
 
-            <button class="btn-primary" onclick="checkPassword()">ЖҮЙЕГЕ КІРУ</button>
+    <!-- Авторизация беті -->
+    <div id="auth-screen">
+        <h2>ЖҮЙЕГЕ КІРУ ПАРОЛІ</h2>
+        <input type="password" class="password-input" id="pass-field" placeholder="ПАРОЛЬДІ ЕНГІЗІҢІЗ">
+        <button class="login-btn" onclick="checkPassword()">КІРУ</button>
+        <div class="error-msg" id="error-text">ҚАТЕ ПАРОЛЬ! ҚАЙТА ТЕКСЕРІҢІЗ.</div>
+    </div>
+
+    <!-- Негізгі бағдарлама мәзірі -->
+    <div id="main-content">
+        <div class="header-panel">
+            <h1>QAZAQ MAX v3.0</h1>
+            <p>Free Fire Оңтайландыру Орталығы</p>
         </div>
 
-        <!-- МӘЗІР ЕКРАНЫ -->
-        <div id="menuView" class="view">
-            <div class="header">
-                <div class="status-group">
-                    <div class="status-dot"></div>
-                    <div class="app-title">КӨМЕКШІ <span>@QAZAQ_MAX</span></div>
+        <div class="card">
+            <!-- ПРИЦЕЛ ҚОСУ -->
+            <div class="menu-item">
+                <div class="menu-info">
+                    <h3>Hacker Crosshair V3</h3>
+                    <p>Экран ортасына жылжымайтын хедшот нүктесін орнатады.</p>
                 </div>
-                <div class="version-tag" style="color: var(--primary-color);">v2.0</div>
+                <label class="switch">
+                    <input type="checkbox" id="toggle-crosshair">
+                    <span class="slider"></span>
+                </label>
             </div>
 
-            <div class="toggle-item">
-                <span style="font-size: 14px;">Дәлдік деңгейі (Precisão Full)</span>
-                <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
-            </div>
-
-            <div class="toggle-item">
-                <span style="font-size: 14px;">Экран дірілін жою (Remover Treme)</span>
-                <label class="switch"><input type="checkbox"><span class="slider"></span></label>
-            </div>
-
-            <div class="toggle-item">
-                <span style="font-size: 14px;">Ақ прицелді жақсарту (Mira Branca)</span>
-                <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
-            </div>
-
-            <div class="toggle-item">
-                <span style="font-size: 14px;">Қайтарымды азайту (Anti-Recoil)</span>
-                <label class="switch"><input type="checkbox"><span class="slider"></span></label>
-            </div>
-
-            <div class="range-container">
-                <div class="range-header">
-                    <span>СЕНСОР СЕЗІМТALДЫҒЫ (PRECISÃO)</span>
-                    <span style="color: var(--primary-color);" id="rangeVal">90%</span>
+            <!-- СЕНСИТИВИТИ РЕТТЕУ -->
+            <div class="menu-item">
+                <div class="menu-info">
+                    <h3>Ultra Sensi (X/Y)</h3>
+                    <p>Экран сезімталдығын арттырып, оттяжканы жеңілдетеді.</p>
                 </div>
-                <input type="range" class="range-slider" min="0" max="100" value="90" oninput="document.getElementById('rangeVal').innerText = this.value + '%'">
+                <label class="switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
             </div>
 
-            <div style="margin-bottom: 20px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 12px; padding: 12px 16px;">
-                <label style="font-size: 12px; color: #b0b0b0; display: block; margin-bottom: 5px;">FREE FIRE НҰСҚАСЫН ТАҢДАҢЫЗ:</label>
-                <select id="ffVersion" style="width: 100%; background: transparent; border: none; color: white; font-size: 14px; outline: none; cursor: pointer;">
-                    <option value="normal" style="background: #150505;">Кәдімгі Free Fire</option>
-                    <option value="max" style="background: #150505;">Free Fire MAX</option>
-                </select>
+            <!-- БАННАН ҚОРҒАУ (Осы жердегі disabled сөзі өшірілді, енді басылады) -->
+            <div class="menu-item">
+                <div class="menu-info">
+                    <h3>Anti-Ban Shield</h3>
+                    <p>Сыртқы прицел қолданғаны үшін жүйе қорғанысы.</p>
+                </div>
+                <label class="switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
             </div>
-
-            <button class="btn-primary" onclick="openGameNow()">ФУНКЦИЯЛАРДЫ ОЙЫНҒА ЕНГІЗУ</button>
         </div>
-
     </div>
 
     <script>
+        const SECRET_PASSWORD = "KAZMAX09"; 
+        
+        const authScreen = document.getElementById('auth-screen');
+        const mainContent = document.getElementById('main-content');
+        const errorText = document.getElementById('error-text');
+        const passField = document.getElementById('pass-field');
+        const crosshair = document.getElementById('crosshair');
+        const toggleCrosshair = document.getElementById('toggle-crosshair');
+
         function checkPassword() {
-            const pass = document.getElementById('passwordInput').value.trim();
-            const error = document.getElementById('passwordError');
-            
-            // Кіру паролі: KAZMAX09
-            if (pass.toUpperCase() === "KAZMAX09") {
-                error.style.display = 'none';
-                document.getElementById('lockView').classList.remove('active');
-                document.getElementById('menuView').classList.add('active');
+            if (passField.value.trim().toUpperCase() === SECRET_PASSWORD) {
+                authScreen.style.display = 'none';
+                mainContent.style.display = 'block';
             } else {
-                error.style.display = 'block';
+                errorText.style.display = 'block';
+                passField.value = "";
+                passField.focus();
             }
         }
 
-        function openGameNow() {
-            const selectedVersion = document.getElementById('ffVersion').value;
-            
-            if (selectedVersion === "max") {
-                window.location.href = "freefiremax://";
-            } else {
-                window.location.href = "freefire://";
+        passField.addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                checkPassword();
             }
-        }
+        });
+
+        toggleCrosshair.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                crosshair.style.display = 'block';
+            } else {
+                crosshair.style.display = 'none';
+            }
+        });
     </script>
 </body>
-</html>
 </html>
