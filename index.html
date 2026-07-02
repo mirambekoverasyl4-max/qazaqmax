@@ -3,429 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>QAZAQ MAX v4.0</title>
-    <!-- iOS үшін қолданба сияқты толық экранда ашу баптаулары -->
+    <title>QAZAQ MAX v5.1</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="https://i.postimg.co/N0M7v3m4/messi-wc-nobg.png">
     <style>
-        :root {
-            --primary-color: #ff1a1a;
-            --bg-color: #000000;
-            --card-bg: #0c0c0f;
-            --text-color: #ffffff;
-            --accent-glow: rgba(255, 26, 26, 0.3);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-        }
-
-        /* 1. АВТОРИЗАЦИЯ БЕТІ (ҚАРА/ҚЫЗЫЛ СТИЛЬ) */
-        #auth-screen {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, #150505 0%, #000000 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-            padding: 20px;
-        }
-
-        .auth-logo {
-            font-size: 28px;
-            font-weight: 900;
-            color: var(--primary-color);
-            letter-spacing: 3px;
-            margin-bottom: 5px;
-            text-shadow: 0 0 20px var(--primary-color);
-        }
-
-        .auth-sub {
-            font-size: 11px;
-            color: #666;
-            text-transform: uppercase;
-            margin-bottom: 40px;
-            letter-spacing: 2px;
-        }
-
-        .input-box {
-            position: relative;
-            width: 100%;
-            max-width: 320px;
-            margin-bottom: 20px;
-        }
-
-        .password-input {
-            width: 100%;
-            padding: 16px;
-            background-color: rgba(20, 20, 25, 0.8);
-            border: 1px solid #222;
-            border-radius: 12px;
-            font-size: 16px;
-            color: #fff;
-            text-align: center;
-            letter-spacing: 3px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .password-input:focus {
-            border-color: var(--primary-color);
-            outline: none;
-            box-shadow: 0 0 15px var(--accent-glow);
-        }
-
-        .login-btn {
-            width: 100%;
-            max-width: 320px;
-            padding: 16px;
-            background: linear-gradient(90deg, #b30000, var(--primary-color));
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 20px rgba(255, 26, 26, 0.4);
-            transition: 0.2s;
-        }
-
-        .login-btn:active {
-            transform: scale(0.98);
-            opacity: 0.9;
-        }
-
-        .error-msg {
-            color: var(--primary-color);
-            font-size: 13px;
-            margin-top: 15px;
-            display: none;
-            font-weight: bold;
-            text-shadow: 0 0 10px rgba(255,26,26,0.3);
-        }
-
-        /* 2. НЕГІЗГІ МӘЗІР (ТОЛЫҚ ЭКРАН) */
-        #main-content {
-            display: none;
-            width: 100%;
-            height: 100vh;
-            background-color: #000000;
-            position: relative;
-            padding: 25px 20px;
-            overflow-y: auto;
-        }
-
-        .menu-header {
-            text-align: center;
-            margin-bottom: 25px;
-            position: relative;
-        }
-
-        .menu-header h1 {
-            font-size: 24px;
-            font-weight: 900;
-            color: #fff;
-            letter-spacing: 1px;
-        }
-
-        .menu-header h1 span {
-            color: var(--primary-color);
-            text-shadow: 0 0 15px var(--primary-color);
-        }
-
-        .menu-header p {
-            font-size: 11px;
-            color: var(--primary-color);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-top: 4px;
-            font-weight: 600;
-        }
-
-        /* ПАНЕЛЬДЕР (КАРТОЧКА) */
-        .panel {
-            background-color: var(--card-bg);
-            border-radius: 16px;
-            padding: 10px 15px;
-            margin-bottom: 20px;
-            border: 1px solid #111;
-        }
-
-        .menu-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 0;
-            border-bottom: 1px solid #15151a;
-        }
-
-        .menu-item:last-child {
-            border-bottom: none;
-        }
-
-        .item-info h3 {
-            font-size: 15px;
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 3px;
-        }
-
-        .item-info p {
-            font-size: 11px;
-            color: #666;
-        }
-
-        /* СЛАЙДЕРЛЕР (ПОЛЗУНОК) */
-        .range-container {
-            padding: 15px 0 5px 0;
-        }
+        :root { --primary: #ff1a1a; --bg: #000; --card: #0c0c0f; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; -webkit-tap-highlight-color: transparent; user-select: none; }
+        body { background: var(--bg); color: #fff; min-height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; }
         
-        .range-label {
-            display: flex;
-            justify-content: space-between;
-            font-size: 13px;
-            color: #ccc;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
+        /* КЛАССИКАЛЫҚ ҚЫЗЫЛ ПРИЦЕЛ */
+        .crosshair { position: fixed; top: 50%; left: 50%; width: 30px; height: 30px; transform: translate(-50%, -50%); pointer-events: none; z-index: 999999; display: none; }
+        .c-dot { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 8px; height: 8px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 10px var(--primary); }
+        .c-circle { position: absolute; top: 0; left: 0; right: 0; bottom: 0; border: 2px solid var(--primary); border-radius: 50%; }
 
-        .range-label span:last-child {
-            color: var(--primary-color);
-            font-weight: bold;
-        }
+        /* КІРУ БЕТІ */
+        #auth { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; padding: 20px; }
+        .m-img { width: 120px; height: 120px; margin-bottom: 20px; filter: drop-shadow(0 0 10px var(--primary)); }
+        .title { font-size: 24px; font-weight: 900; color: var(--primary); letter-spacing: 2px; margin-bottom: 20px; }
+        .inp { width: 100%; max-width: 300px; padding: 14px; background: #111; border: 1px solid #222; border-radius: 10px; font-size: 16px; color: #fff; text-align: center; font-weight: bold; margin-bottom: 15px; }
+        .btn { width: 100%; max-width: 300px; padding: 14px; background: var(--primary); border: none; border-radius: 10px; color: #fff; font-size: 16px; font-weight: bold; cursor: pointer; }
+        .err { color: var(--primary); font-size: 13px; margin-top: 10px; display: none; }
 
-        .custom-range {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 6px;
-            background: #1a1a24;
-            border-radius: 5px;
-            outline: none;
-        }
+        /* МӘЗІР */
+        #menu { display: none; width: 100%; height: 100vh; padding: 20px; overflow-y: auto; }
+        .panel { background: var(--card); border-radius: 14px; padding: 12px; margin-bottom: 15px; border: 1px solid #111; }
+        .c-pick { display: flex; justify-content: space-around; padding: 5px 0; }
+        .c-btn { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #333; cursor: pointer; }
+        
+        /* СЛАЙДЕРЛЕР ОРНЫ */
+        .row { padding: 8px 0; }
+        .lbl { display: flex; justify-content: space-between; font-size: 13px; color: #ccc; margin-bottom: 5px; }
+        .lbl span:last-child { color: var(--primary); font-weight: bold; }
+        .sld { -webkit-appearance: none; width: 100%; height: 5px; background: #222; border-radius: 3px; outline: none; }
+        .sld::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--primary); cursor: pointer; }
 
-        .custom-range::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: var(--primary-color);
-            box-shadow: 0 0 8px var(--primary-color);
-            cursor: pointer;
-            transition: 0.1s;
-        }
-
-        /* ПЕРЕКЛЮЧАТЕЛЬ (SWITCH) */
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 46px;
-            height: 26px;
-        }
-
-        .switch input { display: none; }
-
-        .slider {
-            position: absolute; cursor: pointer;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: #1c1c24;
-            transition: .3s; border-radius: 34px;
-            border: 1px solid #333;
-        }
-
-        .slider:before {
-            position: absolute; content: "";
-            height: 18px; width: 18px;
-            left: 3px; bottom: 3px;
-            background-color: white;
-            transition: .3s; border-radius: 50%;
-        }
-
-        input:checked + .slider {
-            background-color: var(--primary-color);
-            box-shadow: 0 0 10px var(--accent-glow);
-            border-color: var(--primary-color);
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(20px);
-        }
-
-        /* ОЙЫНҒА КІРУ БАТЫРМАСЫ */
-        .inject-btn {
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(90deg, #990000, #ff1a1a);
-            border: none;
-            border-radius: 14px;
-            color: white;
-            font-size: 15px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            cursor: pointer;
-            margin-top: 10px;
-            box-shadow: 0 5px 25px rgba(255, 26, 26, 0.3);
-            text-align: center;
-        }
-
-        .inject-btn:active {
-            transform: scale(0.97);
-        }
-
-        /* ЭКРАН ОРТАСЫНДАҒЫ СУПЕР ПРИЦЕЛ */
-        .center-crosshair {
-            position: fixed;
-            top: 50%; left: 50%;
-            width: 10px; height: 10px;
-            transform: translate(-50%, -50%);
-            background-color: #00ffcc;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
-            z-index: 99999;
-            pointer-events: none;
-            display: none;
-        }
+        /* ТУМБЛЕРЛЕР */
+        .item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #15151a; }
+        .item:last-child { border-bottom: none; }
+        .tgl { position: relative; display: inline-block; width: 44px; height: 24px; }
+        .tgl input { display: none; }
+        .sldr { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: #222; transition: .3s; border-radius: 24px; }
+        .sldr:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background: #fff; transition: .3s; border-radius: 50%; }
+        input:checked + .sldr { background: var(--primary); }
+        input:checked + .sldr:before { transform: translateX(20px); }
     </style>
 </head>
 <body>
 
-    <!-- ЭКРАН ОРТАСЫНДАҒЫ ПРИЦЕЛ -->
-    <div class="center-crosshair" id="cross"></div>
-
-    <!-- 1. КІРУ БЕТІ -->
-    <div id="auth-screen">
-        <div class="auth-logo">AUXÍLIO @KAZMAX</div>
-        <div class="auth-sub">Insira sua key de acesso</div>
-        
-        <div class="input-box">
-            <input type="password" class="password-input" id="key-field" placeholder="••••••••">
-        </div>
-        
-        <button class="login-btn" onclick="verifyKey()">DESBLOQUEAR</button>
-        <div class="error-msg" id="error-msg">KEY ҚАТЕ! ҚАЙТА ТЕКСЕРІҢІЗ.</div>
+    <div class="crosshair" id="ch">
+        <div class="c-circle" id="ch-c"></div>
+        <div class="c-dot" id="ch-d"></div>
     </div>
 
-    <!-- 2. НЕГІЗГІ СЕНСОР МӘЗІРІ -->
-    <div id="main-content">
-        <div class="menu-header">
-            <h1>AUXÍLIO <span>@KAZMAX</span></h1>
-            <p>v4.0 REGEDIT ONLINE</p>
+    <div id="auth">
+        <img src="https://i.postimg.co/N0M7v3m4/messi-wc-nobg.png" class="m-img" alt="M">
+        <div class="title">AUXÍLIO @KAZMAX</div>
+        <input type="password" class="inp" id="key" placeholder="••••••••">
+        <button class="btn" onclick="login()">DESBLOQUEAR</button>
+        <div class="err" id="err">KEY ҚАТЕ!</div>
+    </div>
+
+    <div id="menu">
+        <div style="text-align:center; margin-bottom:20px;">
+            <h2 style="font-size:22px;">AUXÍLIO <span style="color:var(--primary)">@KAZMAX</span></h2>
+            <p style="font-size:10px; color:var(--primary); letter-spacing:2px;">v5.1 REGEDIT</p>
         </div>
 
-        <!-- СЕЗІМТАЛДЫҚ БАПТАУЛАРЫ -->
         <div class="panel">
-            <div class="range-container">
-                <div class="range-label">
-                    <span>СЕЗІМТАЛДЫҚ (Sensibilidade 360°)</span>
-                    <span id="sens-val">50%</span>
-                </div>
-                <input type="range" class="custom-range" min="0" max="100" value="50" id="sens-slider" oninput="updateVal('sens-slider', 'sens-val')">
-            </div>
-
-            <div class="range-container">
-                <div class="range-label">
-                    <span>ОТТЯЖКА ДӘЛДІГІ (Precisão)</span>
-                    <span id="pre-val">80%</span>
-                </div>
-                <input type="range" class="custom-range" min="0" max="100" value="80" id="pre-slider" oninput="updateVal('pre-slider', 'pre-val')">
+            <div style="font-size:12px; color:#aaa; margin-bottom:8px; text-align:center;">Mudar Cor (Прицел түсі):</div>
+            <div class="c-pick">
+                <button class="c-btn" style="background:#ff1a1a" onclick="setClr('#ff1a1a')"></button>
+                <button class="c-btn" style="background:#00ffcc" onclick="setClr('#00ffcc')"></button>
+                <button class="c-btn" style="background:#007aff" onclick="setClr('#007aff')"></button>
+                <button class="c-btn" style="background:#ffcc00" onclick="setClr('#ffcc00')"></button>
             </div>
         </div>
 
-        <!-- ФУНКЦИЯЛАРДЫ ҚОСУ -->
         <div class="panel">
-            <div class="menu-item">
-                <div class="item-info">
-                    <h3>Precisão Full (Авто-наводка)</h3>
-                    <p>Нысананы автоматты түрде басқа бағыттайды.</p>
-                </div>
-                <label class="switch">
-                    <input type="checkbox" id="aim-lock">
-                    <span class="slider"></span>
-                </label>
+            <div class="row">
+                <div class="lbl"><span>Sensibilidade (Сезімталдық)</span><span id="v-1">360°</span></div>
+                <input type="range" class="sld" min="0" max="360" value="360" id="s-1" oninput="upd('s-1','v-1','°')">
             </div>
-
-            <div class="menu-item">
-                <div class="item-info">
-                    <h3>Hacker Crosshair (Сыртқы прицел)</h3>
-                    <p>Экран ортасына жасыл нүкте орнатады.</p>
-                </div>
-                <label class="switch">
-                    <input type="checkbox" id="crosshair-toggle">
-                    <span class="slider"></span>
-                </label>
+            <div class="row">
+                <div class="lbl"><span>Frequência (Экран жиілігі)</span><span id="v-2">120 Hz</span></div>
+                <input type="range" class="sld" min="60" max="120" value="120" id="s-2" oninput="upd('s-2','v-2',' Hz')">
             </div>
-
-            <div class="menu-item">
-                <div class="item-info">
-                    <h3>Anti-Recoil (Тітіркенуді азайту)</h3>
-                    <p>Оқ атқан кезде қарудың шашырауын тоқтатады.</p>
-                </div>
-                <label class="switch">
-                    <input type="checkbox" checked>
-                    <span class="slider"></span>
-                </label>
+            <div class="row">
+                <div class="lbl"><span>FPS Макс (Ойын жылдамдығы)</span><span id="v-3">240 FPS</span></div>
+                <input type="range" class="sld" min="30" max="240" value="240" id="s-3" oninput="upd('s-3','v-3',' FPS')">
             </div>
         </div>
 
-        <!-- ОЙЫНҒА ЖІБЕРУ БАТЫРМАСЫ -->
-        <button class="inject-btn" onclick="launchGame()">INJETAR FUNÇÕES NO JOGO</button>
+        <div class="panel">
+            <div class="item">
+                <div><h4>Hacker Crosshair (Прицел)</h4><p style="font-size:10px; color:#555">Экрандағы тұрақты нүкте</p></div>
+                <label class="tgl"><input type="checkbox" id="ch-tgl"><span class="sldr"></span></label>
+            </div>
+            <div class="item">
+                <div><h4>Precisão Full (Авто-наводка)</h4><p style="font-size:10px; color:#555">Оқтарды басқа бағыттау</p></div>
+                <label class="tgl"><input type="checkbox" checked><span class="sldr"></span></label>
+            </div>
+        </div>
+
+        <button class="btn" style="width:100%; padding:16px; background:linear-gradient(90deg, #900, #f1a);" onclick="start()">INJETAR FUNÇÕES NO JOGO</button>
     </div>
 
     <script>
-        const ACCESS_KEY = "KAZMAX09";
-
-        function verifyKey() {
-            const input = document.getElementById('key-field').value.trim().toUpperCase();
-            if (input === ACCESS_KEY) {
-                document.getElementById('auth-screen').style.display = 'none';
-                document.getElementById('main-content').style.display = 'block';
-            } else {
-                const err = document.getElementById('error-msg');
-                err.style.display = 'block';
-                document.getElementById('key-field').value = '';
-            }
+        function login() {
+            if (document.getElementById('key').value.trim().toUpperCase() === "KAZMAX09") {
+                document.getElementById('auth').style.display = 'none';
+                document.getElementById('menu').style.display = 'block';
+            } else { document.getElementById('err').style.display = 'block'; }
         }
 
-        function updateVal(sliderId, labelId) {
-            const slider = document.getElementById(sliderId);
-            const label = document.getElementById(labelId);
-            label.innerText = slider.value + "%";
+        function upd(sId, lId, unit) {
+            document.getElementById(lId).innerText = document.getElementById(sId).value + unit;
         }
 
-        // Прицелді қосып өшіру
-        document.getElementById('crosshair-toggle').addEventListener('change', function(e) {
-            const cross = document.getElementById('cross');
-            if (e.target.checked) {
-                cross.style.display = 'block';
-            } else {
-                cross.style.display = 'none';
-            }
+        function setClr(clr) {
+            document.getElementById('ch-d').style.background = clr;
+            document.getElementById('ch-c').style.borderColor = clr;
+            document.getElementById('ch-d').style.boxShadow = `0 0 10px ${clr}`;
+            document.documentElement.style.setProperty('--primary', clr);
+        }
+
+        document.getElementById('ch-tgl').addEventListener('change', function(e) {
+            document.getElementById('ch').style.display = e.target.checked ? 'block' : 'none';
         });
 
-        // Ойынды іске қосу батырмасы (Free Fire-ды тікелей ашады)
-        function launchGame() {
-            alert("Функциялар сәтті енгізілді! Батырманы басқан соң Free Fire ойыны іске қосылады.");
-            // Ойынды тікелей телефонда іске қосу сілтемесі
+        function start() {
+            alert("Функциялар енгізілді! Батырманы басқан соң Free Fire іске қосылады.");
             window.location.href = "freefire://"; 
         }
     </script>
