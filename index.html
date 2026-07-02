@@ -3,137 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>QAZAQ MAX v5.1</title>
+    <title>QAZAQ MAX v5.2</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="https://i.postimg.co/N0M7v3m4/messi-wc-nobg.png">
     <style>
-        :root { --primary: #ff1a1a; --bg: #000; --card: #0c0c0f; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; -webkit-tap-highlight-color: transparent; user-select: none; }
-        body { background: var(--bg); color: #fff; min-height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        :root { --main-clr: #ff1a1a; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; user-select: none; }
+        body { background: #000; color: #fff; min-height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; }
         
-        /* КЛАССИКАЛЫҚ ҚЫЗЫЛ ПРИЦЕЛ */
-        .crosshair { position: fixed; top: 50%; left: 50%; width: 30px; height: 30px; transform: translate(-50%, -50%); pointer-events: none; z-index: 999999; display: none; }
-        .c-dot { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 8px; height: 8px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 10px var(--primary); }
-        .c-circle { position: absolute; top: 0; left: 0; right: 0; bottom: 0; border: 2px solid var(--primary); border-radius: 50%; }
+        /* ТҰРАҚТЫ ОЙЫН ІШІНДЕГІ ПРИЦЕЛ */
+        .overlay-crosshair { position: fixed; top: 50%; left: 50%; width: 24px; height: 24px; transform: translate(-50%, -50%); pointer-events: none; z-index: 9999999; display: none; }
+        .cross-dot { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 8px; height: 8px; background: var(--main-clr); border-radius: 50%; box-shadow: 0 0 12px var(--main-clr); }
+        .cross-circle { position: absolute; top: 0; left: 0; right: 0; bottom: 0; border: 2px solid var(--main-clr); border-radius: 50%; opacity: 0.8; }
 
-        /* КІРУ БЕТІ */
-        #auth { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; padding: 20px; }
-        .m-img { width: 120px; height: 120px; margin-bottom: 20px; filter: drop-shadow(0 0 10px var(--primary)); }
-        .title { font-size: 24px; font-weight: 900; color: var(--primary); letter-spacing: 2px; margin-bottom: 20px; }
-        .inp { width: 100%; max-width: 300px; padding: 14px; background: #111; border: 1px solid #222; border-radius: 10px; font-size: 16px; color: #fff; text-align: center; font-weight: bold; margin-bottom: 15px; }
-        .btn { width: 100%; max-width: 300px; padding: 14px; background: var(--primary); border: none; border-radius: 10px; color: #fff; font-size: 16px; font-weight: bold; cursor: pointer; }
-        .err { color: var(--primary); font-size: 13px; margin-top: 10px; display: none; }
+        /* АВТОРИЗАЦИЯ */
+        #login-page { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #050505; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; padding: 20px; }
+        .messi { width: 120px; height: 120px; margin-bottom: 15px; filter: drop-shadow(0 0 10px var(--main-clr)); }
+        .logo { font-size: 24px; font-weight: bold; color: var(--main-clr); margin-bottom: 20px; letter-spacing: 2px; }
+        .input-key { width: 100%; max-width: 280px; padding: 14px; background: #111; border: 1px solid #222; border-radius: 10px; font-size: 16px; color: #fff; text-align: center; margin-bottom: 15px; font-weight: bold; }
+        .action-btn { width: 100%; max-width: 280px; padding: 14px; background: var(--main-clr); border: none; border-radius: 10px; color: #fff; font-size: 16px; font-weight: bold; cursor: pointer; }
+        .error { color: var(--main-clr); font-size: 12px; margin-top: 10px; display: none; font-weight: bold; }
 
-        /* МӘЗІР */
-        #menu { display: none; width: 100%; height: 100vh; padding: 20px; overflow-y: auto; }
-        .panel { background: var(--card); border-radius: 14px; padding: 12px; margin-bottom: 15px; border: 1px solid #111; }
-        .c-pick { display: flex; justify-content: space-around; padding: 5px 0; }
-        .c-btn { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #333; cursor: pointer; }
+        /* НЕГІЗГІ ПАНЕЛЬ */
+        #menu-page { display: none; width: 100%; height: 100vh; padding: 20px; overflow-y: auto; }
+        .box { background: #0c0c0f; border-radius: 12px; padding: 12px; margin-bottom: 15px; border: 1px solid #111; }
+        .colors { display: flex; justify-content: space-around; padding: 5px 0; }
+        .color-selector { width: 38px; height: 38px; border-radius: 50%; border: 2px solid #222; cursor: pointer; }
         
-        /* СЛАЙДЕРЛЕР ОРНЫ */
-        .row { padding: 8px 0; }
-        .lbl { display: flex; justify-content: space-between; font-size: 13px; color: #ccc; margin-bottom: 5px; }
-        .lbl span:last-child { color: var(--primary); font-weight: bold; }
-        .sld { -webkit-appearance: none; width: 100%; height: 5px; background: #222; border-radius: 3px; outline: none; }
-        .sld::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--primary); cursor: pointer; }
+        /* СЛАЙДЕРЛЕР */
+        .setting-item { padding: 8px 0; }
+        .info-label { display: flex; justify-content: space-between; font-size: 13px; color: #ccc; margin-bottom: 5px; }
+        .info-label span:last-child { color: var(--main-clr); font-weight: bold; }
+        .slider-range { -webkit-appearance: none; width: 100%; height: 5px; background: #222; border-radius: 3px; outline: none; }
+        .slider-range::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--main-clr); cursor: pointer; }
 
-        /* ТУМБЛЕРЛЕР */
-        .item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #15151a; }
-        .item:last-child { border-bottom: none; }
-        .tgl { position: relative; display: inline-block; width: 44px; height: 24px; }
-        .tgl input { display: none; }
-        .sldr { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: #222; transition: .3s; border-radius: 24px; }
-        .sldr:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background: #fff; transition: .3s; border-radius: 50%; }
-        input:checked + .sldr { background: var(--primary); }
-        input:checked + .sldr:before { transform: translateX(20px); }
+        /* ТУМБЛЕР */
+        .flex-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #15151a; }
+        .flex-row:last-child { border-bottom: none; }
+        .switch-btn { position: relative; display: inline-block; width: 44px; height: 24px; }
+        .switch-btn input { display: none; }
+        .knob { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: #222; transition: .3s; border-radius: 24px; }
+        .knob:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background: #fff; transition: .3s; border-radius: 50%; }
+        input:checked + .knob { background: var(--main-clr); }
+        input:checked + .knob:before { transform: translateX(20px); }
     </style>
 </head>
 <body>
 
-    <div class="crosshair" id="ch">
-        <div class="c-circle" id="ch-c"></div>
-        <div class="c-dot" id="ch-d"></div>
+    <div class="overlay-crosshair" id="aim-pointer">
+        <div class="cross-circle" id="aim-c"></div>
+        <div class="cross-dot" id="aim-d"></div>
     </div>
 
-    <div id="auth">
-        <img src="https://i.postimg.co/N0M7v3m4/messi-wc-nobg.png" class="m-img" alt="M">
-        <div class="title">AUXÍLIO @KAZMAX</div>
-        <input type="password" class="inp" id="key" placeholder="••••••••">
-        <button class="btn" onclick="login()">DESBLOQUEAR</button>
-        <div class="err" id="err">KEY ҚАТЕ!</div>
+    <div id="login-page">
+        <img src="https://i.postimg.co/N0M7v3m4/messi-wc-nobg.png" class="messi" alt="Messi">
+        <div class="logo">AUXÍLIO @KAZMAX</div>
+        <input type="password" class="input-key" id="access-key" placeholder="••••••••">
+        <button class="action-btn" onclick="checkAccess()">КІРУ (DESBLOQUEAR)</button>
+        <div class="error" id="err-text">ҚҰПИЯ СӨЗ ҚАТЕ!</div>
     </div>
 
-    <div id="menu">
+    <div id="menu-page">
         <div style="text-align:center; margin-bottom:20px;">
-            <h2 style="font-size:22px;">AUXÍLIO <span style="color:var(--primary)">@KAZMAX</span></h2>
-            <p style="font-size:10px; color:var(--primary); letter-spacing:2px;">v5.1 REGEDIT</p>
+            <h2 style="font-size:22px; letter-spacing:1px;">AUXÍLIO <span style="color:var(--main-clr)">@KAZMAX</span></h2>
+            <p style="font-size:10px; color:var(--main-clr); letter-spacing:3px;">v5.2 REGEDIT</p>
         </div>
 
-        <div class="panel">
-            <div style="font-size:12px; color:#aaa; margin-bottom:8px; text-align:center;">Mudar Cor (Прицел түсі):</div>
-            <div class="c-pick">
-                <button class="c-btn" style="background:#ff1a1a" onclick="setClr('#ff1a1a')"></button>
-                <button class="c-btn" style="background:#00ffcc" onclick="setClr('#00ffcc')"></button>
-                <button class="c-btn" style="background:#007aff" onclick="setClr('#007aff')"></button>
-                <button class="c-btn" style="background:#ffcc00" onclick="setClr('#ffcc00')"></button>
-            </div>
-        </div>
-
-        <div class="panel">
-            <div class="row">
-                <div class="lbl"><span>Sensibilidade (Сезімталдық)</span><span id="v-1">360°</span></div>
-                <input type="range" class="sld" min="0" max="360" value="360" id="s-1" oninput="upd('s-1','v-1','°')">
-            </div>
-            <div class="row">
-                <div class="lbl"><span>Frequência (Экран жиілігі)</span><span id="v-2">120 Hz</span></div>
-                <input type="range" class="sld" min="60" max="120" value="120" id="s-2" oninput="upd('s-2','v-2',' Hz')">
-            </div>
-            <div class="row">
-                <div class="lbl"><span>FPS Макс (Ойын жылдамдығы)</span><span id="v-3">240 FPS</span></div>
-                <input type="range" class="sld" min="30" max="240" value="240" id="s-3" oninput="upd('s-3','v-3',' FPS')">
+        <div class="box">
+            <div style="font-size:12px; color:#aaa; margin-bottom:8px; text-align:center;">Прицел түсін ауыстыру:</div>
+            <div class="colors">
+                <button class="color-selector" style="background:#ff1a1a" onclick="updateTheme('#ff1a1a')"></button>
+                <button class="color-selector" style="background:#00ffcc" onclick="updateTheme('#00ffcc')"></button>
+                <button class="color-selector" style="background:#007aff" onclick="updateTheme('#007aff')"></button>
+                <button class="color-selector" style="background:#ffcc00" onclick="updateTheme('#ffcc00')"></button>
             </div>
         </div>
 
-        <div class="panel">
-            <div class="item">
-                <div><h4>Hacker Crosshair (Прицел)</h4><p style="font-size:10px; color:#555">Экрандағы тұрақты нүкте</p></div>
-                <label class="tgl"><input type="checkbox" id="ch-tgl"><span class="sldr"></span></label>
+        <div class="box">
+            <div class="setting-item">
+                <div class="info-label"><span>Sensibilidade (Сезімталдық)</span><span id="v1">360°</span></div>
+                <input type="range" class="slider-range" min="0" max="360" value="360" id="s1" oninput="renderVal('s1','v1','°')">
             </div>
-            <div class="item">
+            <div class="setting-item">
+                <div class="info-label"><span>Frequência (Экран жиілігі)</span><span id="v2">120 Hz</span></div>
+                <input type="range" class="slider-range" min="60" max="120" value="120" id="s2" oninput="renderVal('s2','v2',' Hz')">
+            </div>
+            <div class="setting-item">
+                <div class="info-label"><span>FPS Макс (Ойын жылдамдығы)</span><span id="v3">240 FPS</span></div>
+                <input type="range" class="slider-range" min="30" max="240" value="240" id="s3" oninput="renderVal('s3','v3',' FPS')">
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="flex-row">
+                <div><h4>Экрандағы тұрақты прицел</h4><p style="font-size:10px; color:#555">Ойын ішінде жоғалмайды</p></div>
+                <label class="switch-btn"><input type="checkbox" id="toggle-aim"><span class="knob"></span></label>
+            </div>
+            <div class="flex-row">
                 <div><h4>Precisão Full (Авто-наводка)</h4><p style="font-size:10px; color:#555">Оқтарды басқа бағыттау</p></div>
-                <label class="tgl"><input type="checkbox" checked><span class="sldr"></span></label>
+                <label class="switch-btn"><input type="checkbox" checked><span class="knob"></span></label>
             </div>
         </div>
 
-        <button class="btn" style="width:100%; padding:16px; background:linear-gradient(90deg, #900, #f1a);" onclick="start()">INJETAR FUNÇÕES NO JOGO</button>
+        <button class="action-btn" style="width:100%; padding:16px; background:linear-gradient(90deg, #900, #f1a);" onclick="openGame()">ОЙЫНҒА ЕНГІЗУ (INJETAR)</button>
     </div>
 
     <script>
-        function login() {
-            if (document.getElementById('key').value.trim().toUpperCase() === "KAZMAX09") {
-                document.getElementById('auth').style.display = 'none';
-                document.getElementById('menu').style.display = 'block';
-            } else { document.getElementById('err').style.display = 'block'; }
+        function checkAccess() {
+            if (document.getElementById('access-key').value.trim().toUpperCase() === "KAZMAX09") {
+                document.getElementById('login-page').style.display = 'none';
+                document.getElementById('menu-page').style.display = 'block';
+            } else { document.getElementById('err-text').style.display = 'block'; }
         }
 
-        function upd(sId, lId, unit) {
+        function renderVal(sId, lId, unit) {
             document.getElementById(lId).innerText = document.getElementById(sId).value + unit;
         }
 
-        function setClr(clr) {
-            document.getElementById('ch-d').style.background = clr;
-            document.getElementById('ch-c').style.borderColor = clr;
-            document.getElementById('ch-d').style.boxShadow = `0 0 10px ${clr}`;
-            document.documentElement.style.setProperty('--primary', clr);
+        function updateTheme(color) {
+            document.getElementById('aim-d').style.background = color;
+            document.getElementById('aim-c').style.borderColor = color;
+            document.getElementById('aim-d').style.boxShadow = `0 0 12px ${color}`;
+            document.documentElement.style.setProperty('--main-clr', color);
         }
 
-        document.getElementById('ch-tgl').addEventListener('change', function(e) {
-            document.getElementById('ch').style.display = e.target.checked ? 'block' : 'none';
+        document.getElementById('toggle-aim').addEventListener('change', function(e) {
+            document.getElementById('aim-pointer').style.display = e.target.checked ? 'block' : 'none';
         });
 
-        function start() {
-            alert("Функциялар енгізілді! Батырманы басқан соң Free Fire іске қосылады.");
+        function openGame() {
+            alert("Функциялар қосылды! Батырманы басқан соң Free Fire ашылады.");
             window.location.href = "freefire://"; 
         }
     </script>
