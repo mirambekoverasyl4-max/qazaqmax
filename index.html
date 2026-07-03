@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>KAZMAX PRO</title>
+    <title>KAZMAX PRO - iPhone МОДУЛЬДЕР</title>
     <style>
         :root {
-            --түс: #00e676;
-            --көлеңке: rgba(0, 230, 118, 0.7);
+            --түс: #ff3b30;
+            --көлеңке: rgba(255, 59, 48, 0.7);
         }
 
         * {
@@ -27,161 +27,240 @@
             padding: 16px;
         }
 
-        .бет {
-            display: none;
-        }
-        .бет.актив {
-            display: block;
-        }
-
         .контейнер {
-            max-width: 380px;
+            max-width: 420px;
             width: 100%;
             background: linear-gradient(145deg, #141414, #1a1a1a);
             border: 2px solid #2a2a2a;
             border-radius: 28px;
-            padding: 30px 20px;
+            padding: 20px 16px;
             text-align: center;
-            box-shadow: 0 0 60px rgba(0, 230, 118, 0.08);
+            box-shadow: 0 0 60px rgba(255, 59, 48, 0.08);
+            max-height: 95vh;
+            overflow-y: auto;
         }
+
+        .контейнер::-webkit-scrollbar { width: 3px; }
+        .контейнер::-webkit-scrollbar-track { background: #111; border-radius: 10px; }
+        .контейнер::-webkit-scrollbar-thumb { background: var(--түс); border-radius: 10px; }
 
         .тақырып {
-            font-size: 26px;
+            font-size: 22px;
             font-weight: 900;
             color: #fff;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
         }
         .тақырып span { color: var(--түс); text-shadow: 0 0 30px var(--көлеңке); }
-        .асты { color: #666; font-size: 12px; letter-spacing: 3px; margin-bottom: 25px; border-bottom: 1px solid #222; padding-bottom: 15px; }
+        .асты { color: #666; font-size: 10px; letter-spacing: 2px; margin-bottom: 12px; border-bottom: 1px solid #222; padding-bottom: 10px; }
 
-        /* ПАРОЛЬ */
-        .пароль-өріс {
+        /* ХЕДШОТ ИНДИКАТОРЫ */
+        .хедшот-индикатор {
             background: #111;
             border: 1px solid #222;
             border-radius: 14px;
-            padding: 16px;
-            width: 100%;
-            color: #fff;
-            font-size: 16px;
-            text-align: center;
-            outline: none;
-            margin-bottom: 15px;
+            padding: 12px;
+            margin-bottom: 12px;
         }
-        .пароль-өріс:focus { border-color: var(--түс); box-shadow: 0 0 20px var(--көлеңке); }
-        .қате { color: #ff4444; font-size: 13px; margin-bottom: 15px; display: none; }
-
-        /* ДӨҢГЕЛЕК ПРИЦЕЛ */
-        .прицел-дөңгелек {
-            width: 100px;
-            height: 100px;
-            margin: 10px auto 15px;
-            position: relative;
+        .хедшот-пайыз {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--түс);
+            text-shadow: 0 0 40px var(--көлеңке);
+            font-family: 'Courier New', monospace;
         }
-        .прицел-дөңгелек .шеңбер {
+        .хедшот-пайыз small { font-size: 16px; color: #888; }
+        .хедшот-жолақ {
             width: 100%;
+            height: 6px;
+            background: #2a2a2a;
+            border-radius: 10px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+        .хедшот-толтыру {
             height: 100%;
-            border: 3px solid var(--түс);
-            border-radius: 50%;
-            position: relative;
-            box-shadow: 0 0 40px var(--көлеңке);
+            width: 95%;
+            background: linear-gradient(90deg, var(--түс), #ff6b6b);
+            border-radius: 10px;
+            box-shadow: 0 0 20px var(--көлеңке);
+            animation: жарқыл 1.5s ease-in-out infinite;
         }
-        .прицел-дөңгелек .нүкте {
-            width: 8px;
-            height: 8px;
-            background: var(--түс);
-            border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 25px var(--көлеңке);
+        @keyframes жарқыл {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
-        .прицел-дөңгелек .сызық {
-            background: var(--түс);
-            position: absolute;
-            box-shadow: 0 0 15px var(--көлеңке);
-        }
-        .прицел-дөңгелек .сызық.жоғары { width: 2px; height: 22px; top: 0; left: 50%; transform: translateX(-50%); }
-        .прицел-дөңгелек .сызық.төмен { width: 2px; height: 22px; bottom: 0; left: 50%; transform: translateX(-50%); }
-        .прицел-дөңгелек .сызық.сол { height: 2px; width: 22px; left: 0; top: 50%; transform: translateY(-50%); }
-        .прицел-дөңгелек .сызық.оң { height: 2px; width: 22px; right: 0; top: 50%; transform: translateY(-50%); }
+        .хедшот-статус { color: #888; font-size: 11px; margin-top: 6px; }
+        .хедшот-статус span { color: var(--түс); font-weight: bold; }
 
-        /* ҚОСҚЫШТАР */
-        .қосқыш-жол {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        /* FPS */
+        .fps-индикатор {
             background: #111;
             border: 1px solid #222;
-            border-radius: 14px;
-            padding: 14px 16px;
+            border-radius: 12px;
+            padding: 6px 12px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .fps-сан {
+            font-size: 22px;
+            font-weight: 900;
+            color: #ff4444;
+            font-family: 'Courier New', monospace;
+        }
+        .fps-жазу { font-size: 11px; color: #888; letter-spacing: 1px; }
+        .fps-жазу small { display: block; color: #555; font-size: 9px; }
+
+        /* iPhone МОДУЛЬДЕР */
+        .модуль-тақырып {
+            color: #888;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin: 12px 0 8px;
+            text-align: left;
+            border-left: 3px solid var(--түс);
+            padding-left: 10px;
+        }
+
+        .модуль-тор {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
             margin-bottom: 10px;
         }
-        .қосқыш-жазу {
-            color: #ddd;
-            font-size: 14px;
-            font-weight: 500;
-            text-align: left;
-        }
-        .қосқыш-жазу small { display: block; color: #555; font-size: 11px; }
 
-        .қосқыш {
-            position: relative;
-            width: 48px;
-            height: 26px;
-            flex-shrink: 0;
+        .модуль-карта {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 10px 8px;
+            text-align: center;
+            transition: 0.3s;
         }
-        .қосқыш input { opacity: 0; width: 0; height: 0; }
-        .сырғытпа {
+        .модуль-карта.белсенді {
+            border-color: var(--түс);
+            box-shadow: 0 0 20px var(--көлеңке);
+        }
+        .модуль-атауы {
+            color: #ddd;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .модуль-атауы small {
+            display: block;
+            color: #555;
+            font-size: 8px;
+            font-weight: 400;
+        }
+
+        .қосқыш-кіші {
+            position: relative;
+            width: 36px;
+            height: 20px;
+            margin: 4px auto 0;
+            display: inline-block;
+        }
+        .қосқыш-кіші input { opacity: 0; width: 0; height: 0; }
+        .сырғытпа-кіші {
             position: absolute;
             cursor: pointer;
             top: 0; left: 0; right: 0; bottom: 0;
             background: #2a2a2a;
-            border-radius: 26px;
+            border-radius: 20px;
             transition: 0.3s;
         }
-        .сырғытпа::before {
+        .сырғытпа-кіші::before {
             content: "";
             position: absolute;
-            height: 18px;
-            width: 18px;
-            left: 4px;
-            bottom: 4px;
+            height: 14px;
+            width: 14px;
+            left: 3px;
+            bottom: 3px;
             background: #666;
             border-radius: 50%;
             transition: 0.3s;
         }
-        input:checked + .сырғытпа {
+        input:checked + .сырғытпа-кіші {
             background: var(--түс);
-            box-shadow: 0 0 25px var(--көлеңке);
+            box-shadow: 0 0 15px var(--көлеңке);
         }
-        input:checked + .сырғытпа::before {
-            transform: translateX(22px);
+        input:checked + .сырғытпа-кіші::before {
+            transform: translateX(16px);
             background: #fff;
         }
 
-        .батырма {
+        /* БАСТАУ БАТЫРМАСЫ */
+        .бастау-батырма {
             width: 100%;
-            padding: 17px;
-            background: linear-gradient(180deg, var(--түс), #00a84a);
+            padding: 18px;
+            background: linear-gradient(180deg, var(--түс), #cc0000);
             border: none;
-            border-radius: 14px;
-            color: #000;
-            font-size: 16px;
-            font-weight: 800;
-            letter-spacing: 2px;
+            border-radius: 16px;
+            color: #fff;
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: 4px;
             cursor: pointer;
-            margin-top: 10px;
-            box-shadow: 0 6px 35px var(--көлеңке);
+            margin-top: 12px;
+            box-shadow: 0 6px 40px var(--көлеңке);
             text-transform: uppercase;
             transition: 0.2s;
+            position: relative;
+            overflow: hidden;
         }
-        .батырма:active { transform: scale(0.96); }
+        .бастау-батырма::after {
+            content: '▶';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+        }
+        .бастау-батырма:active { transform: scale(0.96); }
 
-        .аяқтама { color: #333; font-size: 10px; margin-top: 18px; letter-spacing: 1px; }
+        .ескерту {
+            background: rgba(255, 59, 48, 0.08);
+            border: 1px solid rgba(255, 59, 48, 0.15);
+            border-radius: 10px;
+            padding: 6px;
+            margin-bottom: 10px;
+            color: #ff6b6b;
+            font-size: 9px;
+        }
+
+        .аяқтама { color: #333; font-size: 8px; margin-top: 10px; letter-spacing: 1px; }
         .аяқтама span { color: var(--түс); }
 
-        /* ТІРІ ПРИЦЕЛ (ойын үсті) */
+        /* ПРИЦЕЛ (нүкте) */
+        .прицел-нүкте {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            margin: 6px auto 10px;
+        }
+        .прицел-нүкте .нүкте-үлгі {
+            width: 10px;
+            height: 10px;
+            background: var(--түс);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--көлеңке);
+        }
+        .прицел-нүкте .сызық-үлгі {
+            width: 14px;
+            height: 2px;
+            background: var(--түс);
+            box-shadow: 0 0 10px var(--көлеңке);
+        }
+        .прицел-нүкте .сызық-үлгі.верт {
+            width: 2px;
+            height: 14px;
+        }
+
+        /* ТІРІ ПРИЦЕЛ */
         #тірі-прицел {
             position: fixed;
             top: 50%;
@@ -190,17 +269,6 @@
             pointer-events: none;
             z-index: 999999;
             display: none;
-        }
-        #тірі-прицел .шеңбер {
-            width: 36px;
-            height: 36px;
-            border: 2px solid var(--түс);
-            border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 35px var(--көлеңке);
         }
         #тірі-прицел .нүкте {
             width: 5px;
@@ -216,49 +284,21 @@
         #тірі-прицел .сызық {
             background: var(--түс);
             position: absolute;
-            box-shadow: 0 0 12px var(--көлеңке);
+            box-shadow: 0 0 10px var(--көлеңке);
         }
-        #тірі-прицел .сызық.жоғары { width: 2px; height: 18px; top: 50%; left: 50%; transform: translate(-50%, -100%); }
-        #тірі-прицел .сызық.төмен { width: 2px; height: 18px; top: 50%; left: 50%; transform: translate(-50%, 0%); }
-        #тірі-прицел .сызық.сол { height: 2px; width: 18px; top: 50%; left: 50%; transform: translate(-100%, -50%); }
-        #тірі-прицел .сызық.оң { height: 2px; width: 18px; top: 50%; left: 50%; transform: translate(0%, -50%); }
+        #тірі-прицел .сызық.жоғары { width: 2px; height: 12px; top: 50%; left: 50%; transform: translate(-50%, -100%); }
+        #тірі-прицел .сызық.төмен { width: 2px; height: 12px; top: 50%; left: 50%; transform: translate(-50%, 0%); }
+        #тірі-прицел .сызық.сол { height: 2px; width: 12px; top: 50%; left: 50%; transform: translate(-100%, -50%); }
+        #тірі-прицел .сызық.оң { height: 2px; width: 12px; top: 50%; left: 50%; transform: translate(0%, -50%); }
 
-        /* Жарқылдау */
-        @keyframes пульс {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
-        }
-        .жарқыл {
-            animation: пульс 1.5s ease-in-out infinite;
-        }
-
-        /* FPS индикаторы */
-        .fps-индикатор {
-            background: #111;
-            border: 1px solid #222;
-            border-radius: 14px;
-            padding: 8px 16px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-        }
-        .fps-сан {
-            font-size: 28px;
-            font-weight: 900;
-            color: #ff4444;
-            font-family: 'Courier New', monospace;
-        }
-        .fps-жазу { font-size: 13px; color: #888; letter-spacing: 1px; }
-        .fps-жазу small { display: block; color: #555; font-size: 10px; }
+        /* iPhone модульдерінің иконкалары */
+        .модуль-иконка { font-size: 18px; display: block; margin-bottom: 2px; }
     </style>
 </head>
 <body>
 
-    <!-- ТІРІ ПРИЦЕЛ (ойын үсті) -->
-    <div id="тірі-прицел" class="жарқыл">
-        <div class="шеңбер"></div>
+    <!-- ТІРІ ПРИЦЕЛ -->
+    <div id="тірі-прицел">
         <div class="нүкте"></div>
         <div class="сызық жоғары"></div>
         <div class="сызық төмен"></div>
@@ -266,180 +306,317 @@
         <div class="сызық оң"></div>
     </div>
 
-    <!-- ===== БЕТ 1: ПАРОЛЬ ===== -->
-    <div id="бет-1" class="бет актив">
-        <div class="контейнер">
-            <div class="тақырып">KAZMAX <span>PRO</span></div>
-            <div class="асты">ПАРОЛЬМЕН КІРУ</div>
+    <div class="контейнер" id="негізгіКонтейнер">
+        <div class="тақырып">KAZMAX <span>PRO</span></div>
+        <div class="асты">⚡ iPhone МОДУЛЬДЕР • 20 ФУНКЦИЯ</div>
 
-            <input type="password" class="пароль-өріс" id="пароль" placeholder="Парольді енгізіңіз" autofocus>
-            <div class="қате" id="қате">❌ Қате пароль! Қайта тексеріңіз.</div>
+        <div class="ескерту">⚠️ Бұл тек көрнекі үлгі! Нақты ойын ішінде жұмыс істемейді.</div>
 
-            <button class="батырма" onclick="кіру()">▶ КІРУ</button>
-            <div class="аяқтама">⚡ <span>KAZMAX PRO</span> v5.0</div>
+        <!-- ХЕДШОТ -->
+        <div class="хедшот-индикатор">
+            <div class="хедшот-пайыз">95<small>%</small></div>
+            <div class="хедшот-жолақ"><div class="хедшот-толтыру"></div></div>
+            <div class="хедшот-статус">🎯 Хедшот: <span>ЭЛИТАРЛЫ</span></div>
         </div>
-    </div>
 
-    <!-- ===== БЕТ 2: МӘЗІР ===== -->
-    <div id="бет-2" class="бет">
-        <div class="контейнер">
-            <div class="тақырып">KAZMAX <span>PRO</span></div>
-            <div class="асты">БАРЛЫҚ ФУНКЦИЯЛАР</div>
+        <!-- FPS -->
+        <div class="fps-индикатор">
+            <span class="fps-сан" id="fpsСан">240</span>
+            <div class="fps-жазу">FPS <small>Кадр/сек</small></div>
+        </div>
 
-            <!-- FPS индикаторы -->
-            <div class="fps-индикатор">
-                <span class="fps-сан" id="fpsСан">60</span>
-                <div class="fps-жазу">
-                    FPS
-                    <small>Кадр/сек</small>
-                </div>
+        <!-- Прицел үлгісі -->
+        <div class="прицел-нүкте">
+            <div class="сызық-үлгі"></div>
+            <div class="нүкте-үлгі"></div>
+            <div class="сызық-үлгі"></div>
+            <div class="сызық-үлгі верт"></div>
+            <div class="сызық-үлгі верт"></div>
+        </div>
+
+        <!-- ===== МОДУЛЬ 1: НЕГІЗГІ ===== -->
+        <div class="модуль-тақырып">📱 НЕГІЗГІ МОДУЛЬДЕР</div>
+        <div class="модуль-тор">
+            <div class="модуль-карта" id="мод1">
+                <span class="модуль-иконка">🎯</span>
+                <div class="модуль-атауы">Хедшот 95%<small>Басқа дәлдік</small></div>
+                <label class="қосқыш-кіші">
+                    <input type="checkbox" id="хедшот" onchange="хедшотБақылау(this.checked)">
+                    <span class="сырғытпа-кіші"></span>
+                </label>
             </div>
-
-            <!-- Дөңгелек прицел суреті -->
-            <div class="прицел-дөңгелек">
-                <div class="шеңбер">
-                    <div class="нүкте"></div>
-                    <div class="сызық жоғары"></div>
-                    <div class="сызық төмен"></div>
-                    <div class="сызық сол"></div>
-                    <div class="сызық оң"></div>
-                </div>
+            <div class="модуль-карта" id="мод2">
+                <span class="модуль-иконка">🤖</span>
+                <div class="модуль-атауы">Аймбот<small>Авто бағыттау</small></div>
+                <label class="қосқыш-кіші">
+                    <input type="checkbox" id="аймбот" onchange="аймботБақылау(this.checked)">
+                    <span class="сырғытпа-кіші"></span>
+                </label>
             </div>
-
-            <!-- 1. Прицел (ӨШІРУЛІ) -->
-            <div class="қосқыш-жол">
-                <div class="қосқыш-жазу">
-                    🎯 Прицел (ойын үсті)
-                    <small>Дөңгелек + нүкте</small>
-                </div>
-                <label class="қосқыш">
+            <div class="модуль-карта" id="мод3">
+                <span class="модуль-иконка">🎯</span>
+                <div class="модуль-атауы">Прицел<small>Экран ортасы</small></div>
+                <label class="қосқыш-кіші">
                     <input type="checkbox" id="прицел" onchange="прицелБақылау(this.checked)">
-                    <span class="сырғытпа"></span>
+                    <span class="сырғытпа-кіші"></span>
                 </label>
             </div>
-
-            <!-- 2. Хедшот (ӨШІРУЛІ) -->
-            <div class="қосқыш-жол">
-                <div class="қосқыш-жазу">
-                    🎯 Хедшот режимі
-                    <small>Басқа дәл тию</small>
-                </div>
-                <label class="қосқыш">
-                    <input type="checkbox" id="хедшот">
-                    <span class="сырғытпа"></span>
+            <div class="модуль-карта" id="мод4">
+                <span class="модуль-иконка">🚀</span>
+                <div class="модуль-атауы">240 FPS<small>Ultra жылдам</small></div>
+                <label class="қосқыш-кіші">
+                    <input type="checkbox" id="fps240" checked onchange="fpsБақылау(this.checked)">
+                    <span class="сырғытпа-кіші"></span>
                 </label>
             </div>
-
-            <!-- 3. Графика (ӨШІРУЛІ) -->
-            <div class="қосқыш-жол">
-                <div class="қосқыш-жазу">
-                    🖼️ Жоғары графика
-                    <small>HD текстуралар</small>
-                </div>
-                <label class="қосқыш">
-                    <input type="checkbox" id="графика">
-                    <span class="сырғытпа"></span>
-                </label>
-            </div>
-
-            <!-- 4. 360° (ӨШІРУЛІ) -->
-            <div class="қосқыш-жол">
-                <div class="қосқыш-жазу">
-                    🌐 360° көру бұрышы
-                    <small>Толық шолу</small>
-                </div>
-                <label class="қосқыш">
-                    <input type="checkbox" id="көру360">
-                    <span class="сырғытпа"></span>
-                </label>
-            </div>
-
-            <!-- 5. 120 Гц (ӨШІРУЛІ) -->
-            <div class="қосқыш-жол">
-                <div class="қосқыш-жазу">
-                    ⚡ 120 Гц жиілік
-                    <small>Тегіс ойын</small>
-                </div>
-                <label class="қосқыш">
-                    <input type="checkbox" id="hz120">
-                    <span class="сырғытпа"></span>
-                </label>
-            </div>
-
-            <!-- 6. 240 FPS (ӨШІРУЛІ) -->
-            <div class="қосқыш-жол">
-                <div class="қосқыш-жазу">
-                    🚀 240 FPS режимі
-                    <small>Ultra жылдам</small>
-                </div>
-                <label class="қосқыш">
-                    <input type="checkbox" id="fps240" onchange="fpsБақылау(this.checked)">
-                    <span class="сырғытпа"></span>
-                </label>
-            </div>
-
-            <!-- ОЙЫНҒА КІРУ -->
-            <button class="батырма" onclick="ойынАшу()">▶ ОЙЫНҒА КІРУ</button>
-
-            <div class="аяқтама">⚡ <span>KAZMAX PRO</span> v5.0 • Барлығы өшірілген</div>
         </div>
+
+        <!-- ===== МОДУЛЬ 2: КӨРУ ===== -->
+        <div class="модуль-тақырып">👁️ КӨРУ МОДУЛЬДЕРІ</div>
+        <div class="модуль-тор">
+            <div class="модуль-карта" id="мод5">
+                <span class="модуль-иконка">🌐</span>
+                <div class="модуль-атауы">360° көру<small>Толық шолу</small></div>
+                <label class="қосқыш-кіші">
+                    <input type="checkbox" id="көру360">
+                    <span class="сырғытпа-кіші"></span>
+                </label>
+            </div>
+            <div class="модуль-карта" id="мод6">
+                <span class="модуль-иконка">🔭</span>
+                <div class="модуль-атауы">Қашықтық көру<small>Ұзаққа көру</small></div>
+                <label class="қосқыш-кіші">
+                    <input type="checkbox" id="қашықтық">
+                    <span class="сырғытпа-кіші"></span>
+                </label>
+            </div>
+            <div class="модуль-карта" id="мод7">
+                <span class="модуль-иконка">👀</span>
+                <div class="модуль-атауы">Жарықтылық<small>Түнгі көру</small></div>
+                <label class="қосқыш-кіші">
+                    <input type="checkbox" id="жарықтылық">
+                    <span class="сырғытпа-кіші"></span>
+                </label>
+            </div>
+            <div class="модуль-карта" id="мод8">
+                <span class="модуль-иконка">🎨</span>
+                <div class="модуль-атауы">Түс фильтрі<small>Контраст</small></div>
+                <label class="қосқыш-кіші">
+                    <input type="checkbox" id="түсФильтр">
+                    <span class="сырғытпа-кіші"></span>
+                </label>
+            </div>
+        </div>
+
+        <!-- ===== МОДУЛЬ 3: ЖЫЛДАМДЫҚ ===== -->
+        <div class="модуль-тақырып">⚡ ЖЫЛДАМДЫҚ МОДУЛЬДЕРІ</div>
+        <div class="модуль-тор">
+            <div class="модуль-карта" id="мод9">
+                <span class="модуль-иконка">🏃</span>
+                <div class="модуль-атауы">Жылдамдық<small>Жылжу</small></div>
+                <label class="қосқыш-кіші">
+                    <input type="checkbox" id="жылдамдық">
+                    <span class="сырғытпа-кіші"></span>
+                </label>
+            </div>
+            <div class="модуль-карта" id="мод10">
+                <span class="модуль-иконка">⚡</span>
+                <div class="модуль-атауы">120 Гц<small>Тегіс экран</small></div>
+                <label class="қосқыш-кіші">
+                    <input type="checkbox" id="hz120">
+                    <span class="сырғытпа-кіші"></span>
+                </label>
+            </div>
+            <div class="модуль-карта" id="мод11">
+                <span class="модуль-иконка">🔄</span>
+                <div class="модуль-атауы">Тез айналу<small>Spin</small></div>
+                <label class="қосқыш-кіші">
+                    <input type="checkbox" id="тезАйналу">
+                    <span class="сырғытпа-кіші"></span>
+                </label>
+            </div>
+            <div class="модуль-карта" id="мод12">
+                <span class="модуль-иконка">📈</span>
+                <div class="модуль-атауы">Реакция<small>Жылдам жауап</small></div>
+                <label class="қосқыш-кіші">
+                    <input type="checkbox" id="реакция">
+                    <span class="сырғытпа-кіші"></span>
+                </label>
+            </div>
+        </div>
+
+        <!-- ===== МОДУЛЬ 4: ҚОРҒАНЫС ===== -->
+        <div class="модуль-тақырып">🛡️ ҚОРҒАНЫС МОДУЛЬДЕРІ</div>
+        <div class="модуль-тор">
+            <div class="модуль-карта" id="мод13">
+                <span class="модуль-иконка">🛡️</span>
+                <div class="модуль-атауы">Анти-лаг<small>Кешігуді азайту</small></div>
+                <label class="қосқыш-кіші">
+                    <input type="checkbox" id="антилаг">
+                    <span class="сырғытпа-кіші"></span>
+                </label>
+            </div>
+            <div class="модуль-карта" id="мод14">
+                <span class="модуль-иконка">🛡️</span>
+                <div class="модуль-атауы">Анти-бан<small>Қауіпсіздік</small></div>
+                <label class="қосқыш-кіші">
+                    <input type="checkbox" id="антибан">
+                    <span class="сырғытпа-кіші"></span>
+                </label>
+            </div>
+            <div class="модуль-карта" id="мод15">
+                <span class="модуль-иконка">🔒</span>
+                <div class="модуль-атауы">Жасыру<small>Stealth</small></div>
+                <label class="қосқыш-кіші">
+                    <input type="checkbox" id="жасыру">
+                    <span class="сырғытпа-кіші"></span>
+                </label>
+            </div>
+            <div class="модуль-карта" id="мод16">
+                <span class="модуль-иконка">🔄</span>
+                <div class="модуль-атауы">VPN режимі<small>IP жасыру</small></div>
+                <label class="қосқыш-кіші">
+                    <input type="checkbox" id="vpnРежим">
+                    <span class="сырғытпа-кіші"></span>
+                </label>
+            </div>
+        </div>
+
+        <!-- ===== МОДУЛЬ 5: ҚОСЫМША ===== -->
+        <div class="модуль-тақырып">🔧 ҚОСЫМША МОДУЛЬДЕР</div>
+        <div class="модуль-тор">
+            <div class="модуль-карта" id="мод17">
+                <span class="модуль-иконка">🎮</span>
+                <div class="модуль-атауы">Аим ассист<small>Көмекші</small></div>
+                <label class="қосқыш-кіші">
+                    <input type="checkbox" id="аимАссист">
+                    <span class="сырғытпа-кіші"></span>
+                </label>
+            </div>
+            <div class="модуль-карта" id="мод18">
+                <span class="модуль-иконка">📊</span>
+                <div class="модуль-атауы">Статистика<small>Көрсеткіш</small></div>
+                <label class="қосқыш-кіші">
+                    <input type="checkbox" id="статистика">
+                    <span class="сырғытпа-кіші"></span>
+                </label>
+            </div>
+            <div class="модуль-карта" id="мод19">
+                <span class="модуль-иконка">💾</span>
+                <div class="модуль-атауы">Жадты тазалау<small>RAM Boost</small></div>
+                <label class="қосқыш-кіші">
+                    <input type="checkbox" id="жадТазалау">
+                    <span class="сырғытпа-кіші"></span>
+                </label>
+            </div>
+            <div class="модуль-карта" id="мод20">
+                <span class="модуль-иконка">🔋</span>
+                <div class="модуль-атауы">Энергия<small>Power Save</small></div>
+                <label class="қосқыш-кіші">
+                    <input type="checkbox" id="энергия">
+                    <span class="сырғытпа-кіші"></span>
+                </label>
+            </div>
+        </div>
+
+        <!-- БАСТАУ БАТЫРМАСЫ -->
+        <button class="бастау-батырма" onclick="бастау()">БАСТАУ</button>
+
+        <div class="аяқтама">⚡ <span>KAZMAX PRO</span> v7.0 • 20 модуль • iPhone</div>
     </div>
 
     <script>
-        // ===== ПАРОЛЬ =====
-        function кіру() {
-            const пароль = document.getElementById('пароль').value.trim();
-            if (пароль.toUpperCase() === "KAZMAX09") {
-                document.getElementById('бет-1').classList.remove('актив');
-                document.getElementById('бет-2').classList.add('актив');
-                document.getElementById('қате').style.display = 'none';
+        // ===== ХЕДШОТ 95% =====
+        function хедшотБақылау(күй) {
+            const карта = document.getElementById('мод1');
+            if (күй) {
+                карта.classList.add('белсенді');
+                alert('🎯 ХЕДШОТ 95% ҚОСЫЛДЫ!');
             } else {
-                document.getElementById('қате').style.display = 'block';
+                карта.classList.remove('белсенді');
+            }
+        }
+
+        // ===== АЙМБОТ =====
+        function аймботБақылау(күй) {
+            const карта = document.getElementById('мод2');
+            if (күй) {
+                карта.classList.add('белсенді');
+                alert('🤖 АЙМБОТ ҚОСЫЛДЫ!');
+            } else {
+                карта.classList.remove('белсенді');
             }
         }
 
         // ===== ПРИЦЕЛ =====
         function прицелБақылау(күй) {
+            const карта = document.getElementById('мод3');
             document.getElementById('тірі-прицел').style.display = күй ? 'block' : 'none';
-            if (күй && confirm('🎯 Прицелді ойын үстінде көрсету үшін\n"Басқа қолданбаның үстінде көрсету" рұқсатын беріңіз?')) {
-                try {
-                    window.location.href = "android.settings.ACTION_MANAGE_OVERLAY_PERMISSION";
-                } catch(e) {}
+            if (күй) {
+                карта.classList.add('белсенді');
+            } else {
+                карта.classList.remove('белсенді');
             }
         }
 
         // ===== FPS =====
         function fpsБақылау(күй) {
+            const карта = document.getElementById('мод4');
             const сан = document.getElementById('fpsСан');
             if (күй) {
                 сан.textContent = '240';
                 сан.style.color = '#00e676';
                 сан.style.textShadow = '0 0 30px rgba(0,230,118,0.6)';
+                карта.classList.add('белсенді');
             } else {
                 сан.textContent = '60';
                 сан.style.color = '#ff4444';
                 сан.style.textShadow = 'none';
+                карта.classList.remove('белсенді');
             }
         }
 
-        // ===== ОЙЫНҒА КІРУ =====
-        function ойынАшу() {
-            const прицел = document.getElementById('прицел').checked ? '✅ Қосылған' : '❌ Өшірілген';
-            const хедшот = document.getElementById('хедшот').checked ? '✅ Қосылған' : '❌ Өшірілген';
-            const графика = document.getElementById('графика').checked ? '✅ Қосылған' : '❌ Өшірілген';
-            const көру = document.getElementById('көру360').checked ? '✅ Қосылған' : '❌ Өшірілген';
-            const hz = document.getElementById('hz120').checked ? '✅ Қосылған' : '❌ Өшірілген';
+        // ===== БАРЛЫҚ МОДУЛЬДЕРДІ БАСҚАРУ =====
+        function модульБақылау(id, күй) {
+            const карта = document.getElementById(id);
+            if (күй) {
+                карта.classList.add('белсенді');
+            } else {
+                карта.classList.remove('белсенді');
+            }
+        }
+
+        // Барлық модульдерді тыңдау
+        document.querySelectorAll('.модуль-карта input[type="checkbox"]').forEach(input => {
+            const карта = input.closest('.модуль-карта');
+            const id = карта.id;
+            input.addEventListener('change', function() {
+                модульБақылау(id, this.checked);
+            });
+        });
+
+        // ===== БАСТАУ =====
+        function бастау() {
+            // Барлық белсенді модульдерді жинау
+            const белсенді = [];
+            document.querySelectorAll('.модуль-карта.белсенді').forEach(карта => {
+                const атау = карта.querySelector('.модуль-атауы').textContent.trim();
+                белсенді.push(атау);
+            });
+
+            const хедшот = document.getElementById('хедшот').checked ? '✅ 95%' : '❌ Өшірулі';
+            const аймбот = document.getElementById('аймбот').checked ? '✅ Қосылған' : '❌ Өшірулі';
+            const прицел = document.getElementById('прицел').checked ? '✅ Қосылған' : '❌ Өшірулі';
             const fps = document.getElementById('fps240').checked ? '✅ 240 FPS' : '❌ 60 FPS';
 
             alert(
-                '⚡ KAZMAX PRO ФУНКЦИЯЛАРЫ ⚡\n\n' +
-                '🎯 Прицел: ' + прицел + '\n' +
+                '⚡ KAZMAX PRO - БАРЛЫҚ МОДУЛЬДЕР ⚡\n\n' +
+                '📱 Белсенді модульдер: ' + белсенді.length + ' шт\n\n' +
                 '🎯 Хедшот: ' + хедшот + '\n' +
-                '🖼️ Графика: ' + графика + '\n' +
-                '🌐 360° көру: ' + көру + '\n' +
-                '⚡ 120 Гц: ' + hz + '\n' +
+                '🤖 Аймбот: ' + аймбот + '\n' +
+                '🎯 Прицел: ' + прицел + '\n' +
                 '🚀 FPS: ' + fps + '\n\n' +
-                '🎮 Ойын іске қосылуда...'
+                '🎮 Free Fire іске қосылуда...'
             );
 
             window.location.href = "freefire://";
@@ -447,11 +624,6 @@
                 window.location.href = "intent://apps/#Intent;scheme=android-app;package=com.dts.freefireth;end";
             }, 100);
         }
-
-        // Enter пернесімен кіру
-        document.getElementById('пароль').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') кіру();
-        });
     </script>
 </body>
 </html>
