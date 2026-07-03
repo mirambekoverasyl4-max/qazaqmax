@@ -65,7 +65,6 @@
             font-size: 9px;
         }
 
-        /* iPhone модельдері */
         .модель-таңдау {
             display: flex;
             gap: 6px;
@@ -95,7 +94,6 @@
         }
         .модель-батырма:active { transform: scale(0.95); }
 
-        /* ===== НАСТРОЙКА КАРТАСЫ (БӨЛЕК) ===== */
         .настройка-бөлім {
             margin-bottom: 16px;
         }
@@ -139,7 +137,6 @@
         }
         .настройка-мән span { color: #00e676; }
 
-        /* Қосқыш */
         .қосқыш-кіші {
             position: relative;
             width: 36px;
@@ -227,7 +224,6 @@
         }
         .модуль-иконка { font-size: 18px; display: block; margin-bottom: 2px; }
 
-        /* ===== БАСТАУ (БӨЛЕК, АСТЫНДА) ===== */
         .бастау-бөлім {
             margin-top: 16px;
             border-top: 1px solid #222;
@@ -267,13 +263,13 @@
         }
         .аяқтама span { color: #ff3b30; }
 
-        /* ХЕДШОТ */
         .хедшот-индикатор {
             background: #111;
             border: 1px solid #222;
             border-radius: 14px;
             padding: 12px;
             margin-bottom: 12px;
+            cursor: pointer;
         }
         .хедшот-пайыз {
             font-size: 36px;
@@ -306,7 +302,6 @@
         .хедшот-статус { color: #888; font-size: 11px; margin-top: 6px; }
         .хедшот-статус span { color: #ff3b30; font-weight: bold; }
 
-        /* FPS */
         .fps-индикатор {
             background: #111;
             border: 1px solid #222;
@@ -327,7 +322,6 @@
         .fps-жазу { font-size: 11px; color: #888; letter-spacing: 1px; }
         .fps-жазу small { display: block; color: #555; font-size: 9px; }
 
-        /* Прицел */
         .прицел-нүкте {
             display: flex;
             justify-content: center;
@@ -428,7 +422,6 @@
         <div class="жыл-белгісі">📱 <span>iPhone</span> • iOS 2026</div>
         <div class="ескерту">⚠️ Бұл тек көрнекі үлгі! Нақты ойын ішінде жұмыс істемейді.</div>
 
-        <!-- iPhone Модельдері -->
         <div class="модель-таңдау" id="модельТаңдау">
             <button class="модель-батырма белсенді" data-model="iphone16" onclick="модельТаңда('iphone16', this)">📱 iPhone 16</button>
             <button class="модель-батырма" data-model="iphone15" onclick="модельТаңда('iphone15', this)">📱 iPhone 15</button>
@@ -438,7 +431,6 @@
             <button class="модель-батырма" data-model="iphone11" onclick="модельТаңда('iphone11', this)">📱 iPhone 11</button>
         </div>
 
-        <!-- ===== НАСТРОЙКА (БӨЛЕК) ===== -->
         <div class="настройка-бөлім">
             <div class="настройка-карта" id="настройкаКарта">
                 <div class="настройка-атауы">
@@ -472,20 +464,17 @@
             </div>
         </div>
 
-        <!-- ХЕДШОТ -->
         <div class="хедшот-индикатор" onclick="хедшотҰшу()">
             <div class="хедшот-пайыз">95<small>%</small></div>
             <div class="хедшот-жолақ"><div class="хедшот-толтыру"></div></div>
             <div class="хедшот-статус">🎯 Хедшот: <span>ЭЛИТАРЛЫ</span></div>
         </div>
 
-        <!-- FPS -->
         <div class="fps-индикатор">
             <span class="fps-сан" id="fpsСан">240</span>
             <div class="fps-жазу">FPS <small>Кадр/сек</small></div>
         </div>
 
-        <!-- Прицел -->
         <div class="прицел-нүкте">
             <div class="сызық-үлгі"></div>
             <div class="нүкте-үлгі"></div>
@@ -494,7 +483,6 @@
             <div class="сызық-үлгі верт"></div>
         </div>
 
-        <!-- МОДУЛЬ 1 -->
         <div class="модуль-тақырып">📱 НЕГІЗГІ МОДУЛЬДЕР</div>
         <div class="модуль-тор">
             <div class="модуль-карта" id="m1"><span class="модуль-иконка">🎯</span><div class="модуль-атауы">Хедшот 95%<small>Басқа дәлдік</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c1" onchange="тоггл('m1',this.checked)"><span class="сырғытпа-кіші"></span></label></div>
@@ -503,7 +491,6 @@
             <div class="модуль-карта" id="m4"><span class="модуль-иконка">🚀</span><div class="модуль-атауы">240 FPS<small>Ultra жылдам</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c4" checked onchange="fpsТоггл(this.checked)"><span class="сырғытпа-кіші"></span></label></div>
         </div>
 
-        <!-- МОДУЛЬ 2 -->
         <div class="модуль-тақырып">👁️ КӨРУ МОДУЛЬДЕРІ</div>
         <div class="модуль-тор">
             <div class="модуль-карта" id="m5"><span class="модуль-иконка">🌐</span><div class="модуль-атауы">360° көру<small>Толық шолу</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c5" onchange="тоггл('m5',this.checked)"><span class="сырғытпа-кіші"></span></label></div>
@@ -512,7 +499,6 @@
             <div class="модуль-карта" id="m8"><span class="модуль-иконка">🎨</span><div class="модуль-атауы">Түс фильтрі<small>Контраст</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c8" onchange="тоггл('m8',this.checked)"><span class="сырғытпа-кіші"></span></label></div>
         </div>
 
-        <!-- МОДУЛЬ 3 -->
         <div class="модуль-тақырып">⚡ ЖЫЛДАМДЫҚ МОДУЛЬДЕРІ</div>
         <div class="модуль-тор">
             <div class="модуль-карта" id="m9"><span class="модуль-иконка">🏃</span><div class="модуль-атауы">Жылдамдық<small>Жылжу</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c9" onchange="тоггл('m9',this.checked)"><span class="сырғытпа-кіші"></span></label></div>
@@ -521,7 +507,6 @@
             <div class="модуль-карта" id="m12"><span class="модуль-иконка">📈</span><div class="модуль-атауы">Реакция<small>Жылдам жауап</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c12" onchange="тоггл('m12',this.checked)"><span class="сырғытпа-кіші"></span></label></div>
         </div>
 
-        <!-- МОДУЛЬ 4 -->
         <div class="модуль-тақырып">🛡️ ҚОРҒАНЫС МОДУЛЬДЕРІ</div>
         <div class="модуль-тор">
             <div class="модуль-карта" id="m13"><span class="модуль-иконка">🛡️</span><div class="модуль-атауы">Анти-лаг<small>Кешігуді азайту</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c13" onchange="тоггл('m13',this.checked)"><span class="сырғытпа-кіші"></span></label></div>
@@ -530,7 +515,6 @@
             <div class="модуль-карта" id="m16"><span class="модуль-иконка">🔄</span><div class="модуль-атауы">VPN режимі<small>IP жасыру</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c16" onchange="тоггл('m16',this.checked)"><span class="сырғытпа-кіші"></span></label></div>
         </div>
 
-        <!-- МОДУЛЬ 5 -->
         <div class="модуль-тақырып">🔧 ҚОСЫМША МОДУЛЬДЕР</div>
         <div class="модуль-тор">
             <div class="модуль-карта" id="m17"><span class="модуль-иконка">🎮</span><div class="модуль-атауы">Аим ассист<small>Көмекші</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c17" onchange="тоггл('m17',this.checked)"><span class="сырғытпа-кіші"></span></label></div>
@@ -539,18 +523,14 @@
             <div class="модуль-карта" id="m20"><span class="модуль-иконка">🔋</span><div class="модуль-атауы">Энергия<small>Power Save</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c20" onchange="тоггл('m20',this.checked)"><span class="сырғытпа-кіші"></span></label></div>
         </div>
 
-        <!-- ===== БАСТАУ (БӨЛЕК, АСТЫНДА) ===== -->
         <div class="бастау-бөлім">
-            <div class="бастау-жолы">
-                <button class="бастау-батырма" onclick="бастау()">БАСТАУ</button>
-            </div>
+            <button class="бастау-батырма" onclick="бастау()">БАСТАУ</button>
             <div class="аяқтама">⚡ <span>KAZMAX PRO</span> v7.0 • 20 модуль • <span>iPhone 2026</span></div>
         </div>
 
     </div>
 
     <script>
-        // ===== МОДЕЛЬ ТАҢДАУ =====
         var модельДерек = {
             iphone16: { атау: 'iPhone 16 Pro Max', прицел: 'Қызыл ●', fps: '240 FPS', көру: '360° Толық', жиілік: '120 Гц', хедшот: '95 %', антилаг: '✅ Қосылған' },
             iphone15: { атау: 'iPhone 15 Pro', прицел: 'Көк ●', fps: '240 FPS', көру: '360° Толық', жиілік: '120 Гц', хедшот: '90 %', антилаг: '✅ Қосылған' },
@@ -563,7 +543,6 @@
         function модельТаңда(модель, батырма) {
             document.querySelectorAll('.модель-батырма').forEach(b => b.classList.remove('белсенді'));
             батырма.classList.add('белсенді');
-
             var д = модельДерек[модель];
             document.getElementById('модельАтауы').textContent = д.атау;
             document.getElementById('н_прицел').innerHTML = д.прицел;
@@ -574,26 +553,17 @@
             document.getElementById('н_антилаг').innerHTML = д.антилаг;
         }
 
-        // ===== МОДУЛЬ =====
         function тоггл(id, күй) {
             var карта = document.getElementById(id);
-            if (күй) {
-                карта.classList.add('белсенді');
-            } else {
-                карта.classList.remove('белсенді');
-            }
+            if (күй) { карта.classList.add('белсенді'); } 
+            else { карта.classList.remove('белсенді'); }
         }
 
         function прицелТоггл(күй) {
             var карта = document.getElementById('m3');
             var прицел = document.getElementById('тірі-прицел');
-            if (күй) {
-                карта.classList.add('белсенді');
-                прицел.style.display = 'block';
-            } else {
-                карта.classList.remove('белсенді');
-                прицел.style.display = 'none';
-            }
+            if (күй) { карта.classList.add('белсенді'); прицел.style.display = 'block'; } 
+            else { карта.classList.remove('белсенді'); прицел.style.display = 'none'; }
         }
 
         function fpsТоггл(күй) {
@@ -612,7 +582,6 @@
             }
         }
 
-        // ===== ХЕДШОТ ҰШУ =====
         function хедшотҰшу() {
             var элемент = document.createElement('div');
             элемент.className = 'хедшот-ұшу';
@@ -620,21 +589,12 @@
             элемент.style.left = (Math.random() * 80 + 10) + '%';
             элемент.style.top = (Math.random() * 40 + 30) + '%';
             document.body.appendChild(элемент);
-            setTimeout(function() {
-                элемент.remove();
-            }, 1500);
+            setTimeout(function() { элемент.remove(); }, 1500);
         }
 
-        // ===== БАСТАУ =====
         function бастау() {
             var белсенді = document.querySelectorAll('.модуль-карта.белсенді').length;
-            alert(
-                '⚡ KAZMAX PRO - iPhone 2026 ⚡\n' +
-                '═══════════════════════════\n' +
-                '📱 Белсенді модульдер: ' + белсенді + ' / 20\n' +
-                '═══════════════════════════\n' +
-                '🎮 Free Fire іске қосылуда...'
-            );
+            alert('⚡ KAZMAX PRO - iPhone 2026 ⚡\n\n📱 Белсенді модульдер: ' + белсенді + ' / 20\n\n🎮 Free Fire іске қосылуда...');
             window.location.href = "freefire://";
             setTimeout(function() {
                 window.location.href = "intent://apps/#Intent;scheme=android-app;package=com.dts.freefireth;end";
