@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>KAZMAX PRO</title>
+    <title>KAZMAX PRO - iPhone</title>
     <style>
         *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,sans-serif;-webkit-tap-highlight-color:transparent}
         
@@ -45,6 +45,24 @@
         .түс-таңдау{-webkit-appearance:none;appearance:none;width:42px;height:42px;background:transparent;border:2px solid #333;border-radius:50%;cursor:pointer;padding:0}
         .түс-таңдау::-webkit-color-swatch{border-radius:50%;border:none}
         .түс-таңдау::-moz-color-swatch{border-radius:50%;border:none}
+        
+        /* iPhone МОДЕЛЬДЕРІ */
+        .модель-таңдау{display:flex;gap:6px;overflow-x:auto;padding:4px 0 12px;margin-bottom:10px;scrollbar-width:none}
+        .модель-таңдау::-webkit-scrollbar{display:none}
+        .модель-батырма{padding:6px 14px;background:#1a1a1a;border:1px solid #333;border-radius:20px;color:#888;font-size:11px;font-weight:600;white-space:nowrap;cursor:pointer;transition:0.3s}
+        .модель-батырма.белсенді{border-color:var(--түс);color:var(--түс);box-shadow:0 0 20px var(--көлеңке)}
+        .модель-батырма:active{transform:scale(0.95)}
+        
+        /* НАСТРОЙКА КАРТАСЫ */
+        .настройка-бөлім{margin-bottom:16px}
+        .настройка-карта{background:#111;border:1px solid #222;border-radius:14px;padding:14px;text-align:left}
+        .настройка-атауы{color:var(--түс);font-size:13px;font-weight:700;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+        .настройка-атауы small{color:#666;font-size:10px;font-weight:400}
+        .настройка-жол{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid #1a1a1a}
+        .настройка-жол:last-child{border-bottom:none}
+        .настройка-белгі{color:#888;font-size:11px}
+        .настройка-мән{color:#fff;font-size:11px;font-weight:600}
+        .настройка-мән span{color:#00e676}
         
         .хедшот-индикатор{background:#111;border:1px solid #222;border-radius:14px;padding:12px;margin-bottom:12px;cursor:pointer;transition:0.3s}
         .хедшот-индикатор.белсенді{border-color:var(--түс);box-shadow:0 0 30px var(--көлеңке)}
@@ -94,6 +112,8 @@
         
         .аяқтама{color:#333;font-size:8px;margin-top:10px;letter-spacing:1px}
         .аяқтама span{color:var(--түс)}
+        .жыл-белгісі{display:inline-block;background:#1a1a1a;border-radius:12px;padding:4px 14px;font-size:10px;color:#888;border:1px solid #333;margin-bottom:10px}
+        .жыл-белгісі span{color:var(--түс)}
     </style>
 </head>
 <body>
@@ -122,8 +142,9 @@
 <div id="бет-2" class="бет">
     <div class="контейнер">
         <div class="тақырып">KAZMAX <span>PRO</span></div>
-        <div class="асты">⚡ 20 ФУНКЦИЯ</div>
+        <div class="асты">⚡ <span>iPhone 2026</span> 20 МОДУЛЬ</div>
 
+        <div class="жыл-белгісі">📱 <span>iPhone</span> • iOS 2026</div>
         <div class="ескерту">⚠️ Бұл тек көрнекі үлгі! Нақты ойын ішінде жұмыс істемейді.</div>
 
         <!-- ТҮС ТАҢДАУ -->
@@ -133,6 +154,32 @@
                 <small>Өзіңізге ұнаған түсті таңдаңыз</small>
             </div>
             <input type="color" class="түс-таңдау" id="түсТаңдау" value="#ff3b30" oninput="түсӨзгерту(this.value)">
+        </div>
+
+        <!-- iPhone МОДЕЛЬДЕРІ -->
+        <div class="модель-таңдау" id="модельТаңдау">
+            <button class="модель-батырма белсенді" onclick="модельТаңда('iphone16', this)">📱 iPhone 16</button>
+            <button class="модель-батырма" onclick="модельТаңда('iphone15', this)">📱 iPhone 15</button>
+            <button class="модель-батырма" onclick="модельТаңда('iphone14', this)">📱 iPhone 14</button>
+            <button class="модель-батырма" onclick="модельТаңда('iphone13', this)">📱 iPhone 13</button>
+            <button class="модель-батырма" onclick="модельТаңда('iphone12', this)">📱 iPhone 12</button>
+            <button class="модель-батырма" onclick="модельТаңда('iphone11', this)">📱 iPhone 11</button>
+        </div>
+
+        <!-- НАСТРОЙКА КАРТАСЫ -->
+        <div class="настройка-бөлім">
+            <div class="настройка-карта" id="настройкаКарта">
+                <div class="настройка-атауы">
+                    <span id="модельАтауы">iPhone 16 Pro Max</span>
+                    <small>2026 настройка</small>
+                </div>
+                <div class="настройка-жол"><span class="настройка-белгі">🎯 Прицел түсі</span><span class="настройка-мән" id="н_прицел">Қызыл <span>●</span></span></div>
+                <div class="настройка-жол"><span class="настройка-белгі">🚀 FPS лимит</span><span class="настройка-мән" id="н_fps">240 <span>FPS</span></span></div>
+                <div class="настройка-жол"><span class="настройка-белгі">🌐 Көру бұрышы</span><span class="настройка-мән" id="н_көру">360° <span>Толық</span></span></div>
+                <div class="настройка-жол"><span class="настройка-белгі">⚡ Жиілік</span><span class="настройка-мән" id="н_жиілік">120 <span>Гц</span></span></div>
+                <div class="настройка-жол"><span class="настройка-белгі">🎯 Хедшот дәлдігі</span><span class="настройка-мән" id="н_хедшот">95 <span>%</span></span></div>
+                <div class="настройка-жол"><span class="настройка-белгі">🛡️ Анти-лаг</span><span class="настройка-мән" id="н_антилаг">✅ <span>Қосылған</span></span></div>
+            </div>
         </div>
 
         <!-- ХЕДШОТ -->
@@ -263,7 +310,7 @@
         <!-- БАСТАУ -->
         <button class="бастау-батырма" onclick="бастау()">БАСТАУ</button>
 
-        <div class="аяқтама">⚡ <span>KAZMAX PRO</span> v7.0 • 20 функция</div>
+        <div class="аяқтама">⚡ <span>KAZMAX PRO</span> v7.0 • 20 функция • <span>iPhone 2026</span></div>
     </div>
 </div>
 
@@ -280,7 +327,6 @@
         }
     }
 
-    // Enter пернесімен кіру
     document.getElementById('пароль').addEventListener('keydown', function(e) {
         if (e.key === 'Enter') кіру();
     });
@@ -290,12 +336,34 @@
         document.documentElement.style.setProperty('--түс', түс);
         document.documentElement.style.setProperty('--көлеңке', түс + '99');
         
-        // FPS түсін өзгерту
         var fpsҚос = document.getElementById('c4').checked;
         if (fpsҚос) {
             document.getElementById('fpsСан').style.color = түс;
             document.getElementById('fpsСан').style.textShadow = '0 0 30px ' + түс + '99';
         }
+    }
+
+    // ===== iPhone МОДЕЛЬДЕРІ =====
+    var модельДерек = {
+        iphone16: { атау: 'iPhone 16 Pro Max', прицел: 'Қызыл ●', fps: '240 FPS', көру: '360° Толық', жиілік: '120 Гц', хедшот: '95 %', антилаг: '✅ Қосылған' },
+        iphone15: { атау: 'iPhone 15 Pro', прицел: 'Көк ●', fps: '240 FPS', көру: '360° Толық', жиілік: '120 Гц', хедшот: '90 %', антилаг: '✅ Қосылған' },
+        iphone14: { атау: 'iPhone 14 Pro', прицел: 'Жасыл ●', fps: '120 FPS', көру: '270° Кең', жиілік: '90 Гц', хедшот: '85 %', антилаг: '✅ Қосылған' },
+        iphone13: { атау: 'iPhone 13 Pro', прицел: 'Сары ●', fps: '120 FPS', көру: '240° Орта', жиілік: '90 Гц', хедшот: '80 %', антилаг: '⚠️ Шектеулі' },
+        iphone12: { атау: 'iPhone 12 Pro', прицел: 'Қызғылт ●', fps: '90 FPS', көру: '180° Стандарт', жиілік: '60 Гц', хедшот: '75 %', антилаг: '⚠️ Шектеулі' },
+        iphone11: { атау: 'iPhone 11 Pro', прицел: 'Ақ ●', fps: '60 FPS', көру: '180° Стандарт', жиілік: '60 Гц', хедшот: '70 %', антилаг: '❌ Өшірулі' }
+    };
+
+    function модельТаңда(модель, батырма) {
+        document.querySelectorAll('.модель-батырма').forEach(function(b) { b.classList.remove('белсенді'); });
+        батырма.classList.add('белсенді');
+        var д = модельДерек[модель];
+        document.getElementById('модельАтауы').textContent = д.атау;
+        document.getElementById('н_прицел').innerHTML = д.прицел;
+        document.getElementById('н_fps').innerHTML = д.fps;
+        document.getElementById('н_көру').innerHTML = д.көру;
+        document.getElementById('н_жиілік').innerHTML = д.жиілік;
+        document.getElementById('н_хедшот').innerHTML = д.хедшот;
+        document.getElementById('н_антилаг').innerHTML = д.антилаг;
     }
 
     // ===== ПРИЦЕЛ =====
@@ -333,9 +401,10 @@
     function бастау() {
         var түс = document.getElementById('түсТаңдау').value;
         alert(
-            '⚡ KAZMAX PRO ФУНКЦИЯЛАРЫ ⚡\n' +
+            '⚡ KAZMAX PRO - iPhone 2026 ⚡\n' +
             '═══════════════════════\n' +
             '🎨 Түс: ' + түс + '\n' +
+            '📱 iPhone настройка\n' +
             '═══════════════════════\n' +
             '🎮 Free Fire іске қосылуда...'
         );
