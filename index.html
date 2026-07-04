@@ -1,5 +1,7 @@
 ---
 ---
+---
+---
 <!DOCTYPE html>
 <html lang="kk">
 <head>
@@ -8,52 +10,35 @@
     <title>KAZMAX PRO - iPhone</title>
     <style>
         *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,sans-serif;-webkit-tap-highlight-color:transparent}
-        
-        :root {
-            --түс: #ff3b30;
-            --көлеңке: rgba(255, 59, 48, 0.7);
-        }
-        
+        :root{--түс:#ff3b30;--көлеңке:rgba(255,59,48,0.7)}
         body{background:#0a0a0a;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:16px}
-        
         .бет{display:none}
         .бет.актив{display:block}
-        
         .контейнер{max-width:420px;width:100%;background:#141414;border:2px solid #2a2a2a;border-radius:28px;padding:20px 16px;text-align:center;max-height:95vh;overflow-y:auto}
         .контейнер::-webkit-scrollbar{width:3px}
         .контейнер::-webkit-scrollbar-track{background:#111;border-radius:10px}
         .контейнер::-webkit-scrollbar-thumb{background:var(--түс);border-radius:10px}
-        
         .тақырып{font-size:22px;font-weight:900;color:#fff;letter-spacing:1px}
         .тақырып span{color:var(--түс);text-shadow:0 0 30px var(--көлеңке)}
         .асты{color:#666;font-size:10px;letter-spacing:2px;margin-bottom:12px;border-bottom:1px solid #222;padding-bottom:10px}
         .асты span{color:var(--түс)}
-        
         .ескерту{background:rgba(255,59,48,0.08);border:1px solid rgba(255,59,48,0.15);border-radius:10px;padding:6px;margin-bottom:12px;color:#ff6b6b;font-size:9px}
-        
-        /* ПАРОЛЬ */
         .пароль-өріс{width:100%;padding:14px;background:#111;border:2px solid #222;border-radius:14px;color:#fff;font-size:16px;text-align:center;outline:none;margin-bottom:15px;transition:0.3s}
         .пароль-өріс:focus{border-color:var(--түс);box-shadow:0 0 20px var(--көлеңке)}
         .пароль-қате{color:#ff4444;font-size:13px;margin-bottom:12px;display:none}
         .пароль-батырма{width:100%;padding:16px;background:linear-gradient(180deg,var(--түс),#cc0000);border:none;border-radius:14px;color:#fff;font-size:18px;font-weight:900;letter-spacing:3px;cursor:pointer;box-shadow:0 6px 30px var(--көлеңке);text-transform:uppercase;transition:0.2s}
         .пароль-батырма:active{transform:scale(0.96)}
-        
-        /* ТҮС ТАҢДАУ */
         .түс-жол{display:flex;justify-content:space-between;align-items:center;background:#111;border:1px solid #222;border-radius:14px;padding:10px 16px;margin-bottom:12px}
         .түс-жазу{color:#ddd;font-size:13px;font-weight:600}
         .түс-жазу small{display:block;color:#555;font-size:9px;font-weight:400}
         .түс-таңдау{-webkit-appearance:none;appearance:none;width:42px;height:42px;background:transparent;border:2px solid #333;border-radius:50%;cursor:pointer;padding:0}
         .түс-таңдау::-webkit-color-swatch{border-radius:50%;border:none}
         .түс-таңдау::-moz-color-swatch{border-radius:50%;border:none}
-        
-        /* iPhone МОДЕЛЬДЕРІ */
         .модель-таңдау{display:flex;gap:6px;overflow-x:auto;padding:4px 0 12px;margin-bottom:10px;scrollbar-width:none}
         .модель-таңдау::-webkit-scrollbar{display:none}
         .модель-батырма{padding:6px 14px;background:#1a1a1a;border:1px solid #333;border-radius:20px;color:#888;font-size:11px;font-weight:600;white-space:nowrap;cursor:pointer;transition:0.3s}
         .модель-батырма.белсенді{border-color:var(--түс);color:var(--түс);box-shadow:0 0 20px var(--көлеңке)}
         .модель-батырма:active{transform:scale(0.95)}
-        
-        /* НАСТРОЙКА КАРТАСЫ */
         .настройка-бөлім{margin-bottom:16px}
         .настройка-карта{background:#111;border:1px solid #222;border-radius:14px;padding:14px;text-align:left}
         .настройка-атауы{color:var(--түс);font-size:13px;font-weight:700;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
@@ -63,9 +48,7 @@
         .настройка-белгі{color:#888;font-size:11px}
         .настройка-мән{color:#fff;font-size:11px;font-weight:600}
         .настройка-мән span{color:#00e676}
-        
         .хедшот-индикатор{background:#111;border:1px solid #222;border-radius:14px;padding:12px;margin-bottom:12px;cursor:pointer;transition:0.3s}
-        .хедшот-индикатор.белсенді{border-color:var(--түс);box-shadow:0 0 30px var(--көлеңке)}
         .хедшот-пайыз{font-size:36px;font-weight:900;color:var(--түс);text-shadow:0 0 40px var(--көлеңке);font-family:'Courier New',monospace}
         .хедшот-пайыз small{font-size:16px;color:#888}
         .хедшот-жолақ{width:100%;height:6px;background:#2a2a2a;border-radius:10px;margin-top:8px;overflow:hidden}
@@ -73,17 +56,14 @@
         @keyframes жарқыл{0%,100%{opacity:1}50%{opacity:0.7}}
         .хедшот-статус{color:#888;font-size:11px;margin-top:6px}
         .хедшот-статус span{color:var(--түс);font-weight:bold}
-        
         .fps-индикатор{background:#111;border:1px solid #222;border-radius:12px;padding:6px 12px;margin-bottom:12px;display:flex;justify-content:center;align-items:center;gap:10px}
         .fps-сан{font-size:22px;font-weight:900;color:#ff4444;font-family:'Courier New',monospace;transition:0.3s}
         .fps-жазу{font-size:11px;color:#888;letter-spacing:1px}
         .fps-жазу small{display:block;color:#555;font-size:9px}
-        
         .прицел-нүкте{display:flex;justify-content:center;align-items:center;gap:6px;margin:6px auto 10px}
         .прицел-нүкте .нүкте-үлгі{width:10px;height:10px;background:var(--түс);border-radius:50%;box-shadow:0 0 20px var(--көлеңке);transition:0.3s}
         .прицел-нүкте .сызық-үлгі{width:14px;height:2px;background:var(--түс);box-shadow:0 0 10px var(--көлеңке);transition:0.3s}
         .прицел-нүкте .сызық-үлгі.верт{width:2px;height:14px}
-        
         #тірі-прицел{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:999999;display:none}
         #тірі-прицел .нүкте{width:5px;height:5px;background:var(--түс);border-radius:50%;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);box-shadow:0 0 20px var(--көлеңке);transition:0.3s}
         #тірі-прицел .сызық{background:var(--түс);position:absolute;box-shadow:0 0 10px var(--көлеңке);transition:0.3s}
@@ -91,25 +71,20 @@
         #тірі-прицел .сызық.төмен{width:2px;height:12px;top:50%;left:50%;transform:translate(-50%,0%)}
         #тірі-прицел .сызық.сол{height:2px;width:12px;top:50%;left:50%;transform:translate(-100%,-50%)}
         #тірі-прицел .сызық.оң{height:2px;width:12px;top:50%;left:50%;transform:translate(0%,-50%)}
-        
         .хедшот-ұшу{position:fixed;font-size:24px;font-weight:900;color:var(--түс);text-shadow:0 0 30px var(--көлеңке);pointer-events:none;z-index:999999;animation:ұшу 1.5s ease-out forwards}
         @keyframes ұшу{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-200px) scale(2)}}
-        
         .қосқыш-жол{display:flex;justify-content:space-between;align-items:center;background:#111;border:1px solid #222;border-radius:14px;padding:12px 16px;margin-bottom:10px}
         .қосқыш-жазу{color:#ddd;font-size:14px;font-weight:600;text-align:left}
         .қосқыш-жазу small{display:block;color:#555;font-size:10px;font-weight:400}
-        
         .қосқыш{position:relative;width:46px;height:24px;flex-shrink:0}
         .қосқыш input{opacity:0;width:0;height:0}
         .сырғытпа{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:#2a2a2a;border-radius:24px;transition:0.3s}
         .сырғытпа::before{content:"";position:absolute;height:18px;width:18px;left:3px;bottom:3px;background:#666;border-radius:50%;transition:0.3s}
         input:checked + .сырғытпа{background:var(--түс);box-shadow:0 0 20px var(--көлеңке)}
         input:checked + .сырғытпа::before{transform:translateX(22px);background:#fff}
-        
         .бастау-батырма{width:100%;padding:18px;background:linear-gradient(180deg,var(--түс),#cc0000);border:none;border-radius:16px;color:#fff;font-size:20px;font-weight:900;letter-spacing:4px;cursor:pointer;margin-top:12px;box-shadow:0 6px 40px var(--көлеңке);text-transform:uppercase;transition:0.2s;position:relative}
         .бастау-батырма::after{content:'▶';position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:18px}
         .бастау-батырма:active{transform:scale(0.96)}
-        
         .аяқтама{color:#333;font-size:8px;margin-top:10px;letter-spacing:1px}
         .аяқтама span{color:var(--түс)}
         .жыл-белгісі{display:inline-block;background:#1a1a1a;border-radius:12px;padding:4px 14px;font-size:10px;color:#888;border:1px solid #333;margin-bottom:10px}
@@ -126,7 +101,6 @@
     <div class="сызық оң"></div>
 </div>
 
-<!-- ===== БЕТ 1: ПАРОЛЬ ===== -->
 <div id="бет-1" class="бет актив">
     <div class="контейнер">
         <div class="тақырып">KAZMAX <span>PRO</span></div>
@@ -138,7 +112,6 @@
     </div>
 </div>
 
-<!-- ===== БЕТ 2: НЕГІЗГІ ===== -->
 <div id="бет-2" class="бет">
     <div class="контейнер">
         <div class="тақырып">KAZMAX <span>PRO</span></div>
@@ -147,16 +120,11 @@
         <div class="жыл-белгісі">📱 <span>iPhone</span> • iOS 2026</div>
         <div class="ескерту">⚠️ Бұл тек көрнекі үлгі! Нақты ойын ішінде жұмыс істемейді.</div>
 
-        <!-- ТҮС ТАҢДАУ -->
         <div class="түс-жол">
-            <div class="түс-жазу">
-                🎨 Прицел түсі
-                <small>Өзіңізге ұнаған түсті таңдаңыз</small>
-            </div>
+            <div class="түс-жазу">🎨 Прицел түсі<small>Өзіңізге ұнаған түсті таңдаңыз</small></div>
             <input type="color" class="түс-таңдау" id="түсТаңдау" value="#ff3b30" oninput="түсӨзгерту(this.value)">
         </div>
 
-        <!-- iPhone МОДЕЛЬДЕРІ -->
         <div class="модель-таңдау" id="модельТаңдау">
             <button class="модель-батырма белсенді" onclick="модельТаңда('iphone16', this)">📱 iPhone 16</button>
             <button class="модель-батырма" onclick="модельТаңда('iphone15', this)">📱 iPhone 15</button>
@@ -166,13 +134,9 @@
             <button class="модель-батырма" onclick="модельТаңда('iphone11', this)">📱 iPhone 11</button>
         </div>
 
-        <!-- НАСТРОЙКА КАРТАСЫ -->
         <div class="настройка-бөлім">
             <div class="настройка-карта" id="настройкаКарта">
-                <div class="настройка-атауы">
-                    <span id="модельАтауы">iPhone 16 Pro Max</span>
-                    <small>2026 настройка</small>
-                </div>
+                <div class="настройка-атауы"><span id="модельАтауы">iPhone 16 Pro Max</span><small>2026 настройка</small></div>
                 <div class="настройка-жол"><span class="настройка-белгі">🎯 Прицел түсі</span><span class="настройка-мән" id="н_прицел">Қызыл <span>●</span></span></div>
                 <div class="настройка-жол"><span class="настройка-белгі">🚀 FPS лимит</span><span class="настройка-мән" id="н_fps">240 <span>FPS</span></span></div>
                 <div class="настройка-жол"><span class="настройка-белгі">🌐 Көру бұрышы</span><span class="настройка-мән" id="н_көру">360° <span>Толық</span></span></div>
@@ -182,20 +146,17 @@
             </div>
         </div>
 
-        <!-- ХЕДШОТ -->
         <div class="хедшот-индикатор" onclick="хедшотҰшу()">
             <div class="хедшот-пайыз">95<small>%</small></div>
             <div class="хедшот-жолақ"><div class="хедшот-толтыру"></div></div>
             <div class="хедшот-статус">🎯 Хедшот: <span>ЭЛИТАРЛЫ</span></div>
         </div>
 
-        <!-- FPS -->
         <div class="fps-индикатор">
             <span class="fps-сан" id="fpsСан">240</span>
             <div class="fps-жазу">FPS <small>Кадр/сек</small></div>
         </div>
 
-        <!-- Прицел -->
         <div class="прицел-нүкте">
             <div class="сызық-үлгі"></div>
             <div class="нүкте-үлгі"></div>
@@ -204,118 +165,35 @@
             <div class="сызық-үлгі верт"></div>
         </div>
 
-        <!-- 20 ФУНКЦИЯ -->
         <div style="margin-top:12px;text-align:left;color:#888;font-size:11px;font-weight:bold;letter-spacing:2px;border-left:3px solid var(--түс);padding-left:10px;margin-bottom:8px">📱 БАРЛЫҚ ФУНКЦИЯЛАР</div>
 
-        <div class="қосқыш-жол">
-            <div class="қосқыш-жазу">🎯 Хедшот 95%<small>Басқа дәлдік</small></div>
-            <label class="қосқыш"><input type="checkbox" id="c1"><span class="сырғытпа"></span></label>
-        </div>
+        <div class="қосқыш-жол"><div class="қосқыш-жазу">🎯 Хедшот 95%<small>Басқа дәлдік</small></div><label class="қосқыш"><input type="checkbox" id="c1"><span class="сырғытпа"></span></label></div>
+        <div class="қосқыш-жол"><div class="қосқыш-жазу">🤖 Аймбот<small>Авто бағыттау</small></div><label class="қосқыш"><input type="checkbox" id="c2"><span class="сырғытпа"></span></label></div>
+        <div class="қосқыш-жол"><div class="қосқыш-жазу">🎯 Прицел<small>Экран ортасы</small></div><label class="қосқыш"><input type="checkbox" id="c3" onchange="прицелТоггл(this.checked)"><span class="сырғытпа"></span></label></div>
+        <div class="қосқыш-жол"><div class="қосқыш-жазу">🚀 240 FPS<small>Ultra жылдам</small></div><label class="қосқыш"><input type="checkbox" id="c4" checked onchange="fpsТоггл(this.checked)"><span class="сырғытпа"></span></label></div>
+        <div class="қосқыш-жол"><div class="қосқыш-жазу">🌐 360° көру<small>Толық шолу</small></div><label class="қосқыш"><input type="checkbox" id="c5"><span class="сырғытпа"></span></label></div>
+        <div class="қосқыш-жол"><div class="қосқыш-жазу">🔭 Қашықтық көру<small>Ұзаққа көру</small></div><label class="қосқыш"><input type="checkbox" id="c6"><span class="сырғытпа"></span></label></div>
+        <div class="қосқыш-жол"><div class="қосқыш-жазу">👀 Жарықтылық<small>Түнгі көру</small></div><label class="қосқыш"><input type="checkbox" id="c7"><span class="сырғытпа"></span></label></div>
+        <div class="қосқыш-жол"><div class="қосқыш-жазу">🎨 Түс фильтрі<small>Контраст</small></div><label class="қосқыш"><input type="checkbox" id="c8"><span class="сырғытпа"></span></label></div>
+        <div class="қосқыш-жол"><div class="қосқыш-жазу">🏃 Жылдамдық<small>Жылжу</small></div><label class="қосқыш"><input type="checkbox" id="c9"><span class="сырғытпа"></span></label></div>
+        <div class="қосқыш-жол"><div class="қосқыш-жазу">⚡ 120 Гц<small>Тегіс экран</small></div><label class="қосқыш"><input type="checkbox" id="c10"><span class="сырғытпа"></span></label></div>
+        <div class="қосқыш-жол"><div class="қосқыш-жазу">🔄 Тез айналу<small>Spin</small></div><label class="қосқыш"><input type="checkbox" id="c11"><span class="сырғытпа"></span></label></div>
+        <div class="қосқыш-жол"><div class="қосқыш-жазу">📈 Реакция<small>Жылдам жауап</small></div><label class="қосқыш"><input type="checkbox" id="c12"><span class="сырғытпа"></span></label></div>
+        <div class="қосқыш-жол"><div class="қосқыш-жазу">🛡️ Анти-лаг<small>Кешігуді азайту</small></div><label class="қосқыш"><input type="checkbox" id="c13"><span class="сырғытпа"></span></label></div>
+        <div class="қосқыш-жол"><div class="қосқыш-жазу">🛡️ Анти-бан<small>Қауіпсіздік</small></div><label class="қосқыш"><input type="checkbox" id="c14"><span class="сырғытпа"></span></label></div>
+        <div class="қосқыш-жол"><div class="қосқыш-жазу">🔒 Жасыру<small>Stealth</small></div><label class="қосқыш"><input type="checkbox" id="c15"><span class="сырғытпа"></span></label></div>
+        <div class="қосқыш-жол"><div class="қосқыш-жазу">🔄 VPN режимі<small>IP жасыру</small></div><label class="қосқыш"><input type="checkbox" id="c16"><span class="сырғытпа"></span></label></div>
+        <div class="қосқыш-жол"><div class="қосқыш-жазу">🎮 Аим ассист<small>Көмекші</small></div><label class="қосқыш"><input type="checkbox" id="c17"><span class="сырғытпа"></span></label></div>
+        <div class="қосқыш-жол"><div class="қосқыш-жазу">📊 Статистика<small>Көрсеткіш</small></div><label class="қосқыш"><input type="checkbox" id="c18"><span class="сырғытпа"></span></label></div>
+        <div class="қосқыш-жол"><div class="қосқыш-жазу">💾 Жадты тазалау<small>RAM Boost</small></div><label class="қосқыш"><input type="checkbox" id="c19"><span class="сырғытпа"></span></label></div>
+        <div class="қосқыш-жол"><div class="қосқыш-жазу">🔋 Энергия<small>Power Save</small></div><label class="қосқыш"><input type="checkbox" id="c20"><span class="сырғытпа"></span></label></div>
 
-        <div class="қосқыш-жол">
-            <div class="қосқыш-жазу">🤖 Аймбот<small>Авто бағыттау</small></div>
-            <label class="қосқыш"><input type="checkbox" id="c2"><span class="сырғытпа"></span></label>
-        </div>
-
-        <div class="қосқыш-жол">
-            <div class="қосқыш-жазу">🎯 Прицел<small>Экран ортасы</small></div>
-            <label class="қосқыш"><input type="checkbox" id="c3" onchange="прицелТоггл(this.checked)"><span class="сырғытпа"></span></label>
-        </div>
-
-        <div class="қосқыш-жол">
-            <div class="қосқыш-жазу">🚀 240 FPS<small>Ultra жылдам</small></div>
-            <label class="қосқыш"><input type="checkbox" id="c4" checked onchange="fpsТоггл(this.checked)"><span class="сырғытпа"></span></label>
-        </div>
-
-        <div class="қосқыш-жол">
-            <div class="қосқыш-жазу">🌐 360° көру<small>Толық шолу</small></div>
-            <label class="қосқыш"><input type="checkbox" id="c5"><span class="сырғытпа"></span></label>
-        </div>
-
-        <div class="қосқыш-жол">
-            <div class="қосқыш-жазу">🔭 Қашықтық көру<small>Ұзаққа көру</small></div>
-            <label class="қосқыш"><input type="checkbox" id="c6"><span class="сырғытпа"></span></label>
-        </div>
-
-        <div class="қосқыш-жол">
-            <div class="қосқыш-жазу">👀 Жарықтылық<small>Түнгі көру</small></div>
-            <label class="қосқыш"><input type="checkbox" id="c7"><span class="сырғытпа"></span></label>
-        </div>
-
-        <div class="қосқыш-жол">
-            <div class="қосқыш-жазу">🎨 Түс фильтрі<small>Контраст</small></div>
-            <label class="қосқыш"><input type="checkbox" id="c8"><span class="сырғытпа"></span></label>
-        </div>
-
-        <div class="қосқыш-жол">
-            <div class="қосқыш-жазу">🏃 Жылдамдық<small>Жылжу</small></div>
-            <label class="қосқыш"><input type="checkbox" id="c9"><span class="сырғытпа"></span></label>
-        </div>
-
-        <div class="қосқыш-жол">
-            <div class="қосқыш-жазу">⚡ 120 Гц<small>Тегіс экран</small></div>
-            <label class="қосқыш"><input type="checkbox" id="c10"><span class="сырғытпа"></span></label>
-        </div>
-
-        <div class="қосқыш-жол">
-            <div class="қосқыш-жазу">🔄 Тез айналу<small>Spin</small></div>
-            <label class="қосқыш"><input type="checkbox" id="c11"><span class="сырғытпа"></span></label>
-        </div>
-
-        <div class="қосқыш-жол">
-            <div class="қосқыш-жазу">📈 Реакция<small>Жылдам жауап</small></div>
-            <label class="қосқыш"><input type="checkbox" id="c12"><span class="сырғытпа"></span></label>
-        </div>
-
-        <div class="қосқыш-жол">
-            <div class="қосқыш-жазу">🛡️ Анти-лаг<small>Кешігуді азайту</small></div>
-            <label class="қосқыш"><input type="checkbox" id="c13"><span class="сырғытпа"></span></label>
-        </div>
-
-        <div class="қосқыш-жол">
-            <div class="қосқыш-жазу">🛡️ Анти-бан<small>Қауіпсіздік</small></div>
-            <label class="қосқыш"><input type="checkbox" id="c14"><span class="сырғытпа"></span></label>
-        </div>
-
-        <div class="қосқыш-жол">
-            <div class="қосқыш-жазу">🔒 Жасыру<small>Stealth</small></div>
-            <label class="қосқыш"><input type="checkbox" id="c15"><span class="сырғытпа"></span></label>
-        </div>
-
-        <div class="қосқыш-жол">
-            <div class="қосқыш-жазу">🔄 VPN режимі<small>IP жасыру</small></div>
-            <label class="қосқыш"><input type="checkbox" id="c16"><span class="сырғытпа"></span></label>
-        </div>
-
-        <div class="қосқыш-жол">
-            <div class="қосқыш-жазу">🎮 Аим ассист<small>Көмекші</small></div>
-            <label class="қосқыш"><input type="checkbox" id="c17"><span class="сырғытпа"></span></label>
-        </div>
-
-        <div class="қосқыш-жол">
-            <div class="қосқыш-жазу">📊 Статистика<small>Көрсеткіш</small></div>
-            <label class="қосқыш"><input type="checkbox" id="c18"><span class="сырғытпа"></span></label>
-        </div>
-
-        <div class="қосқыш-жол">
-            <div class="қосқыш-жазу">💾 Жадты тазалау<small>RAM Boost</small></div>
-            <label class="қосқыш"><input type="checkbox" id="c19"><span class="сырғытпа"></span></label>
-        </div>
-
-        <div class="қосқыш-жол">
-            <div class="қосқыш-жазу">🔋 Энергия<small>Power Save</small></div>
-            <label class="қосқыш"><input type="checkbox" id="c20"><span class="сырғытпа"></span></label>
-        </div>
-
-        <!-- БАСТАУ -->
         <button class="бастау-батырма" onclick="бастау()">БАСТАУ</button>
-
         <div class="аяқтама">⚡ <span>KAZMAX PRO</span> v7.0 • 20 функция • <span>iPhone 2026</span></div>
     </div>
 </div>
 
 <script>
-    // ===== ПАРОЛЬ =====
     function кіру() {
         var пароль = document.getElementById('пароль').value.trim();
         if (пароль.toUpperCase() === "KAZMAX09") {
@@ -326,16 +204,13 @@
             document.getElementById('қате').style.display = 'block';
         }
     }
-
     document.getElementById('пароль').addEventListener('keydown', function(e) {
         if (e.key === 'Enter') кіру();
     });
 
-    // ===== ТҮС ӨЗГЕРТУ =====
     function түсӨзгерту(түс) {
         document.documentElement.style.setProperty('--түс', түс);
         document.documentElement.style.setProperty('--көлеңке', түс + '99');
-        
         var fpsҚос = document.getElementById('c4').checked;
         if (fpsҚос) {
             document.getElementById('fpsСан').style.color = түс;
@@ -343,7 +218,6 @@
         }
     }
 
-    // ===== iPhone МОДЕЛЬДЕРІ =====
     var модельДерек = {
         iphone16: { атау: 'iPhone 16 Pro Max', прицел: 'Қызыл ●', fps: '240 FPS', көру: '360° Толық', жиілік: '120 Гц', хедшот: '95 %', антилаг: '✅ Қосылған' },
         iphone15: { атау: 'iPhone 15 Pro', прицел: 'Көк ●', fps: '240 FPS', көру: '360° Толық', жиілік: '120 Гц', хедшот: '90 %', антилаг: '✅ Қосылған' },
@@ -366,12 +240,10 @@
         document.getElementById('н_антилаг').innerHTML = д.антилаг;
     }
 
-    // ===== ПРИЦЕЛ =====
     function прицелТоггл(күй) {
         document.getElementById('тірі-прицел').style.display = күй ? 'block' : 'none';
     }
 
-    // ===== FPS =====
     function fpsТоггл(күй) {
         var сан = document.getElementById('fpsСан');
         var түс = document.getElementById('түсТаңдау').value;
@@ -386,7 +258,6 @@
         }
     }
 
-    // ===== ХЕДШОТ ҰШУ =====
     function хедшотҰшу() {
         var элемент = document.createElement('div');
         элемент.className = 'хедшот-ұшу';
@@ -397,17 +268,9 @@
         setTimeout(function() { элемент.remove(); }, 1500);
     }
 
-    // ===== БАСТАУ =====
     function бастау() {
         var түс = document.getElementById('түсТаңдау').value;
-        alert(
-            '⚡ KAZMAX PRO - iPhone 2026 ⚡\n' +
-            '═══════════════════════\n' +
-            '🎨 Түс: ' + түс + '\n' +
-            '📱 iPhone настройка\n' +
-            '═══════════════════════\n' +
-            '🎮 Free Fire іске қосылуда...'
-        );
+        alert('⚡ KAZMAX PRO - iPhone 2026 ⚡\n\n🎨 Түс: ' + түс + '\n📱 iPhone настройка\n\n🎮 Free Fire іске қосылуда...');
         window.location.href = "freefire://";
         setTimeout(function() {
             window.location.href = "intent://apps/#Intent;scheme=android-app;package=com.dts.freefireth;end";
