@@ -8,7 +8,6 @@
 * { margin:0; padding:0; box-sizing:border-box; font-family:-apple-system, sans-serif; }
 body { background:#000; color:#fff; height:100vh; overflow:hidden; }
 
-/* ===== SPLASH SCREEN ===== */
 #splash {
 position:fixed;
 top:0; left:0; right:0; bottom:0;
@@ -19,15 +18,12 @@ align-items:center;
 z-index:999;
 transition:opacity 0.8s ease;
 }
-#splash.hide {
-opacity:0;
-pointer-events:none;
-}
+#splash.hide { opacity:0; pointer-events:none; }
 #splash h1 {
 font-size:70px;
 color:#0088FF;
 font-weight:bold;
-text-shadow:0 0 40px rgba(0,136,255,0.5), 0 0 80px rgba(0,136,255,0.2);
+text-shadow:0 0 40px rgba(0,136,255,0.5);
 animation:pulse 1.5s ease-in-out infinite;
 }
 @keyframes pulse {
@@ -36,29 +32,14 @@ animation:pulse 1.5s ease-in-out infinite;
 100% { transform:scale(1); opacity:1; }
 }
 
-/* ===== НЕГІЗГІ ҚОСЫМША ===== */
-#app {
-display:none;
-flex-direction:column;
-height:100vh;
-background:#000;
-}
+#app { display:none; flex-direction:column; height:100vh; background:#000; }
 
-/* ===== ЖОҒАРҒЫ БӨЛІК ===== */
 .header {
 padding:18px 20px 12px;
 border-bottom:2px solid #0088FF;
 background:linear-gradient(180deg, #001a33, #000);
 }
-.header h1 {
-color:#0088FF;
-font-size:32px;
-font-weight:bold;
-display:flex;
-align-items:center;
-gap:6px;
-text-shadow:0 0 30px rgba(0,136,255,0.2);
-}
+.header h1 { color:#0088FF; font-size:32px; font-weight:bold; display:flex; align-items:center; gap:6px; }
 .header h1 span { color:#00D4FF; font-size:24px; }
 .header .sub { color:#00BFFF; font-size:16px; font-weight:600; margin-top:2px; }
 .header .game { color:#88DDFF; font-size:14px; margin-top:4px; }
@@ -69,10 +50,9 @@ background:#003366; padding:3px 12px; border-radius:12px;
 border:1px solid #0088FF; margin-top:-22px;
 }
 
-/* ===== ОЙЫНДАР ҚАТАРЫ ===== */
 .games-row {
 display:flex;
-gap:10px;
+gap:12px;
 padding:10px 16px;
 background:#001122;
 border-bottom:1px solid #0088FF33;
@@ -80,59 +60,96 @@ overflow-x:auto;
 }
 .games-row .game-item {
 background:#002244;
-padding:5px 14px;
+padding:6px 14px;
 border-radius:16px;
-border:1px solid #0088FF55;
+border:2px solid #0088FF55;
 color:#88DDFF;
 font-size:12px;
 font-weight:500;
-white-space:nowrap;
 display:flex;
 align-items:center;
-gap:6px;
+gap:8px;
 cursor:pointer;
 transition:0.3s;
+flex-shrink:0;
 }
 .games-row .game-item.active {
 background:#004488;
 border-color:#00BFFF;
 color:#00D4FF;
-box-shadow:0 0 20px rgba(0,136,255,0.2);
+box-shadow:0 0 25px rgba(0,136,255,0.25);
 }
-.games-row .game-item .icon { font-size:13px; }
+.games-row .game-item .game-icon { font-size:18px; }
 
-/* ===== БЕТТЕР ===== */
 .content { flex:1; padding:12px 16px; overflow-y:auto; display:none; }
 .content.active { display:block; }
 
-/* ===== ФУНКЦИЯЛАР ===== */
+/* ===== ОЙЫНҒА КІРУ БАТЫРМАСЫ ===== */
+.enter-game-btn {
+background:linear-gradient(135deg, #0088FF, #004488);
+padding:14px 0;
+border-radius:16px;
+color:#fff;
+border:none;
+font-size:18px;
+font-weight:bold;
+width:100%;
+cursor:pointer;
+margin:10px 0;
+box-shadow:0 0 30px rgba(0,136,255,0.3);
+transition:0.3s;
+text-align:center;
+}
+.enter-game-btn:active { transform:scale(0.97); }
+
 .features { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 .feature {
 background:#001a33;
 padding:12px 12px;
 border-radius:12px;
 border-left:4px solid #0088FF;
+cursor:pointer;
+transition:0.3s;
 }
+.feature:active { transform:scale(0.97); }
 .feature .icon { font-size:18px; }
 .feature h4 { color:#00BFFF; font-size:13px; font-weight:600; margin-top:3px; }
 .feature p { color:#5599BB; font-size:10px; margin-top:2px; }
 .feature .status {
-float:right; color:#00D4FF; font-size:10px; font-weight:bold;
-background:#003366; padding:2px 10px; border-radius:12px;
-border:1px solid #0088FF55;
+float:right;
+color:#666;
+font-size:10px;
+font-weight:bold;
+background:#222;
+padding:2px 10px;
+border-radius:12px;
+border:1px solid #444;
+transition:0.3s;
+}
+.feature .status.on {
+color:#00D4FF;
+background:#003366;
+border-color:#0088FF55;
 }
 
 .feature-detail {
+display:none;
 background:#001a33;
 padding:14px;
 border-radius:12px;
 border-left:4px solid #0088FF;
 margin-top:10px;
 }
+.feature-detail.open { display:block; }
 .feature-detail h4 { color:#00BFFF; font-size:15px; margin-bottom:5px; }
 .feature-detail p { color:#88BBDD; font-size:13px; line-height:1.5; }
+.feature-detail .close-btn {
+float:right;
+color:#FF4444;
+cursor:pointer;
+font-size:18px;
+}
 
-/* ===== ТӨМЕНГІ МӘЗІР ===== */
 .bottom-nav {
 display:flex;
 background:#000;
@@ -148,13 +165,8 @@ cursor:pointer;
 transition:0.3s;
 padding:3px 0;
 }
-.bottom-nav .active {
-color:#00D4FF;
-font-weight:bold;
-text-shadow:0 0 20px rgba(0,136,255,0.3);
-}
+.bottom-nav .active { color:#00D4FF; font-weight:bold; }
 
-/* ===== ПРИЦЕЛ ===== */
 .crosshair-container {
 display:none;
 position:fixed;
@@ -165,11 +177,7 @@ justify-content:center;
 align-items:center;
 }
 .crosshair-container.active { display:flex; }
-.crosshair {
-font-size:70px;
-color:#00BFFF;
-text-shadow:0 0 60px rgba(0,136,255,0.5);
-}
+.crosshair { font-size:70px; color:#00BFFF; text-shadow:0 0 60px rgba(0,136,255,0.5); }
 .crosshair-close {
 position:absolute; top:20px; right:20px;
 color:#00BFFF; font-size:22px; cursor:pointer;
@@ -200,9 +208,7 @@ font-size:14px;
 <body>
 
 <!-- ===== SPLASH SCREEN ===== -->
-<div id="splash">
-<h1>MAX</h1>
-</div>
+<div id="splash"><h1>MAX</h1></div>
 
 <!-- ===== НЕГІЗГІ ҚОСЫМША ===== -->
 <div id="app">
@@ -219,43 +225,83 @@ font-size:14px;
 
 <!-- ОЙЫНДАР ҚАТАРЫ -->
 <div class="games-row">
-<div class="game-item active"><span class="icon">🔥</span> Free Fire</div>
-<div class="game-item"><span class="icon">⚔️</span> PUBG Mobile</div>
-<div class="game-item"><span class="icon">🎯</span> Call of Duty</div>
-<div class="game-item"><span class="icon">💀</span> Garena FF</div>
+<div class="game-item active"><span class="game-icon">🔥</span> Free Fire</div>
+<div class="game-item"><span class="game-icon">⚔️</span> PUBG Mobile</div>
+<div class="game-item"><span class="game-icon">🎯</span> Call of Duty</div>
+<div class="game-item"><span class="game-icon">💀</span> Garena FF</div>
 </div>
 
-<!-- БЕТТЕР -->
+<!-- ===== БАСТЫ БЕТ ===== -->
 <div class="content active" id="tab-home">
 <h3 style="color:#00BFFF; font-size:15px; margin-bottom:10px;">⚙️ ФУНКЦИЯЛАР</h3>
+
+<!-- ОЙЫНҒА КІРУ БАТЫРМАСЫ (ДАУЫСПЕН) -->
+<button class="enter-game-btn" onclick="playSound(); enterGame();">🎮 ОЙЫНҒА КІРУ</button>
+
 <div class="features">
-<div class="feature"><span class="icon">⚡</span><span class="status">ҚОСУЛЫ</span><h4>Жылдамдық ядросы</h4><p>CPU/RAM оңтайландыру</p></div>
-<div class="feature"><span class="icon">👆</span><span class="status">ҚОСУЛЫ</span><h4>Супер сенсор</h4><p>Жауап уақытын арттыру</p></div>
-<div class="feature"><span class="icon">📺</span><span class="status">ҚОСУЛЫ</span><h4>Кадр синхроны</h4><p>FPS тұрақтандыру</p></div>
-<div class="feature"><span class="icon">🎯</span><span class="status">ҚОСУЛЫ</span><h4>Дәлдік басқару</h4><p>Сенсор дәлдігін арттыру</p></div>
-<div class="feature"><span class="icon">🔥</span><span class="status">ҚОСУЛЫ</span><h4>Ойын режимі</h4><p>Барлығын бірден қосу</p></div>
-<div class="feature"><span class="icon">🛡️</span><span class="status">ҚОСУЛЫ</span><h4>Желі оңтайландыру</h4><p>Пингті төмендету</p></div>
+<div class="feature" onclick="playSound(); toggleFeature('detail1')">
+<span class="icon">⚡</span>
+<span class="status" id="status1">ӨШІРУЛІ</span>
+<h4>Жылдамдық ядросы</h4>
+<p>CPU/RAM оңтайландыру</p>
 </div>
-<div class="feature-detail">
-<h4>🔹 MAX Қозғалтқышы</h4>
-<p>Жүйенің жалпы жауап беруін жақсарту, қажетсіз фондық жүктемені азайту және тегіс ойын тәжірибесін ұсынады.</p>
+<div class="feature" onclick="playSound(); toggleFeature('detail2')">
+<span class="icon">👆</span>
+<span class="status" id="status2">ӨШІРУЛІ</span>
+<h4>Супер сенсор</h4>
+<p>Жауап уақытын арттыру</p>
+</div>
+<div class="feature" onclick="playSound(); toggleFeature('detail3')">
+<span class="icon">📺</span>
+<span class="status" id="status3">ӨШІРУЛІ</span>
+<h4>Кадр синхроны</h4>
+<p>FPS тұрақтандыру</p>
+</div>
+<div class="feature" onclick="playSound(); toggleFeature('detail4')">
+<span class="icon">🎯</span>
+<span class="status" id="status4">ӨШІРУЛІ</span>
+<h4>Дәлдік басқару</h4>
+<p>Сенсор дәлдігін арттыру</p>
+</div>
+<div class="feature" onclick="playSound(); toggleFeature('detail5')">
+<span class="icon">🔥</span>
+<span class="status" id="status5">ӨШІРУЛІ</span>
+<h4>Ойын режимі</h4>
+<p>Барлығын бірден қосу</p>
+</div>
+<div class="feature" onclick="playSound(); toggleFeature('detail6')">
+<span class="icon">🛡️</span>
+<span class="status" id="status6">ӨШІРУЛІ</span>
+<h4>Желі оңтайландыру</h4>
+<p>Пингті төмендету</p>
 </div>
 </div>
 
+<!-- ТОЛЫҚ СИПАТТАМАЛАР -->
+<div id="detail1" class="feature-detail"><span class="close-btn" onclick="closeDetail('detail1')">✕</span><h4>⚡ Жылдамдық ядросы</h4><p>CPU/RAM оңтайландыру арқылы жүйенің жылдамдығын арттырады.</p></div>
+<div id="detail2" class="feature-detail"><span class="close-btn" onclick="closeDetail('detail2')">✕</span><h4>👆 Супер сенсор</h4><p>Сенсорлық жауап уақытын арттырып, әрекеттеріңізді тездетеді.</p></div>
+<div id="detail3" class="feature-detail"><span class="close-btn" onclick="closeDetail('detail3')">✕</span><h4>📺 Кадр синхроны</h4><p>Экран жаңарту жиілігін тұрақтандырып, FPS көрсеткішін жоғарылатады.</p></div>
+<div id="detail4" class="feature-detail"><span class="close-btn" onclick="closeDetail('detail4')">✕</span><h4>🎯 Дәлдік басқару</h4><p>Сенсор дәлдігін арттырып, көздеу және басқаруды жақсартады.</p></div>
+<div id="detail5" class="feature-detail"><span class="close-btn" onclick="closeDetail('detail5')">✕</span><h4>🔥 Ойын режимі</h4><p>Барлық функцияларды бірден қосып, максималды өнімділік береді.</p></div>
+<div id="detail6" class="feature-detail"><span class="close-btn" onclick="closeDetail('detail6')">✕</span><h4>🛡️ Желі оңтайландыру</h4><p>Интернет байланысын тұрақтандырып, пингті төмендетеді.</p></div>
+</div>
+
+<!-- ===== ФУНКЦИЯ БЕТІ ===== -->
 <div class="content" id="tab-feature">
 <h3 style="color:#00BFFF; font-size:15px; margin-bottom:10px;">🔧 БАРЛЫҚ ФУНКЦИЯЛАР</h3>
-<div class="feature-detail"><h4>🎯 Дәлдік жауап жүйесі VIP</h4><p>Сенсорлық басқарудың тұрақтылығын арттырады және тегіс көздеу тәжірибесін ұсынады.</p></div>
-<div class="feature-detail"><h4>⚡ MAX Қозғалтқышы</h4><p>Жүйенің жалпы жауап беруін жақсартады, қажетсіз фондық жүктемені азайтады.</p></div>
-<div class="feature-detail"><h4>👆 Сенсорды жеделдету</h4><p>Сенсорлық жауапты жақсартады және тегіс басқаруды қамтамасыз етеді.</p></div>
-<div class="feature-detail"><h4>📺 Экран синхроны VIP</h4><p>Экран жаңартуын синхрондап, тегіс анимациялар мен тұрақты кадр ағымын береді.</p></div>
-<div class="feature-detail"><h4>🎯 Сезімталдық зертханасы</h4><p>Сенсорлық тәжірибе мен тегіс әрекеттесуді қамтамасыз етеді.</p></div>
-<div class="feature-detail"><h4>🔄 Қозғалыс жауабы</h4><p>Тегіс сенсорлық әрекеттесу мен жүйе әрекетін қамтамасыз етеді.</p></div>
+<div class="feature-detail open"><h4>🎯 Дәлдік жауап жүйесі VIP</h4><p>Сенсорлық басқарудың тұрақтылығын арттырады және тегіс көздеу тәжірибесін ұсынады.</p></div>
+<div class="feature-detail open"><h4>⚡ MAX Қозғалтқышы</h4><p>Жүйенің жалпы жауап беруін жақсартады, қажетсіз фондық жүктемені азайтады.</p></div>
+<div class="feature-detail open"><h4>👆 Сенсорды жеделдету</h4><p>Сенсорлық жауапты жақсартады және тегіс басқаруды қамтамасыз етеді.</p></div>
+<div class="feature-detail open"><h4>📺 Экран синхроны VIP</h4><p>Экран жаңартуын синхрондап, тегіс анимациялар мен тұрақты кадр ағымын береді.</p></div>
+<div class="feature-detail open"><h4>🎯 Сезімталдық зертханасы</h4><p>Сенсорлық тәжірибе мен тегіс әрекеттесуді қамтамасыз етеді.</p></div>
+<div class="feature-detail open"><h4>🔄 Қозғалыс жауабы</h4><p>Тегіс сенсорлық әрекеттесу мен жүйе әрекетін қамтамасыз етеді.</p></div>
 </div>
 
+<!-- ===== ПРИЦЕЛ БЕТІ ===== -->
 <div class="content" id="tab-visual">
 <h3 style="color:#00BFFF; font-size:15px; margin-bottom:10px;">🎯 ПРИЦЕЛ</h3>
 <p style="color:#5599BB; margin-bottom:12px;">Көздеуіш ату кезінде жел бағытын анықтауға көмектеседі</p>
-<button class="blue-bg" onclick="showCrosshair()">ПРИЦЕЛДІ ҚОСУ</button>
+<button class="blue-bg" onclick="playSound(); showCrosshair();">ПРИЦЕЛДІ ҚОСУ</button>
 <div style="margin-top:12px; background:#001a33; padding:12px; border-radius:12px; border:1px solid #0088FF33;">
 <p style="color:#00BFFF; font-weight:bold;">📊 ӨНІМДІЛІК МОНИТОРЫ</p>
 <div class="monitor-item"><span>FPS</span><span>120</span></div>
@@ -266,6 +312,7 @@ font-size:14px;
 </div>
 </div>
 
+<!-- ===== ПРОФИЛЬ БЕТІ ===== -->
 <div class="content" id="tab-profile">
 <center style="padding-top:8px;">
 <div class="profile-avatar">👤</div>
@@ -277,16 +324,16 @@ font-size:14px;
 <p>▶ TikTok арнамызға жазылыңыз</p>
 <p>▶ WhatsApp каналына қосылыңыз</p>
 </div>
-<button class="profile-btn">ЖАҢАРТУ ТЕКСЕРУ</button>
+<button class="profile-btn" onclick="playSound();">ЖАҢАРТУ ТЕКСЕРУ</button>
 </center>
 </div>
 
 <!-- ТӨМЕНГІ МӘЗІР -->
 <div class="bottom-nav">
-<div class="active" onclick="switchTab('home')">🏠<br>Басты</div>
-<div onclick="switchTab('feature')">⚙️<br>Функция</div>
-<div onclick="switchTab('visual')">🎯<br>Прицел</div>
-<div onclick="switchTab('profile')">👤<br>Профиль</div>
+<div class="active" onclick="playSound(); switchTab('home')">🏠<br>Басты</div>
+<div onclick="playSound(); switchTab('feature')">⚙️<br>Функция</div>
+<div onclick="playSound(); switchTab('visual')">🎯<br>Прицел</div>
+<div onclick="playSound(); switchTab('profile')">👤<br>Профиль</div>
 </div>
 
 </div>
@@ -299,7 +346,23 @@ font-size:14px;
 
 <!-- ===== JAVASCRIPT ===== -->
 <script>
-// Splash Screen
+// === ДАУЫС (SOUND) ===
+function playSound() {
+try {
+var audio = new Audio('data:audio/wav;base64,UklGRlAAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAABAAkACQAJAAkACQAJAAkACQAJAAkACQAJAAkACQAJAAkACQAJAAkACQAJAAkACQAJAA==');
+audio.volume = 0.3;
+audio.play();
+} catch(e) {}
+}
+
+// === ОЙЫНҒА КІРУ ===
+function enterGame() {
+alert('🎮 Ойынға кіру...\nFree Fire ашылуда');
+// Нақты ойынды ашу үшін мына жерге сілтеме қоюға болады
+// window.location.href = 'freefire://';
+}
+
+// === SPLASH SCREEN ===
 setTimeout(function() {
 document.getElementById('splash').classList.add('hide');
 setTimeout(function() {
@@ -307,7 +370,7 @@ document.getElementById('app').style.display = 'flex';
 }, 400);
 }, 2500);
 
-// Беттерді ауыстыру
+// === БЕТТЕР ===
 function switchTab(tabId) {
 document.querySelectorAll('.content').forEach(el => el.classList.remove('active'));
 document.getElementById('tab-' + tabId).classList.add('active');
@@ -315,7 +378,27 @@ document.querySelectorAll('.bottom-nav div').forEach(el => el.classList.remove('
 event.target.closest('div').classList.add('active');
 }
 
-// Прицел
+// === ФУНКЦИЯ ===
+function toggleFeature(detailId) {
+var detail = document.getElementById(detailId);
+var statusEl = detail.previousElementSibling.querySelector('.status');
+if (statusEl) {
+if (statusEl.textContent === 'ӨШІРУЛІ') {
+statusEl.textContent = 'ҚОСУЛЫ';
+statusEl.className = 'status on';
+} else {
+statusEl.textContent = 'ӨШІРУЛІ';
+statusEl.className = 'status';
+}
+}
+detail.classList.toggle('open');
+}
+
+function closeDetail(detailId) {
+document.getElementById(detailId).classList.remove('open');
+}
+
+// === ПРИЦЕЛ ===
 function showCrosshair() {
 document.getElementById('crosshair').classList.add('active');
 }
@@ -323,9 +406,10 @@ function hideCrosshair() {
 document.getElementById('crosshair').classList.remove('active');
 }
 
-// Ойынды таңдау
+// === ОЙЫНДАР ===
 document.querySelectorAll('.games-row .game-item').forEach(item => {
 item.addEventListener('click', function() {
+playSound();
 document.querySelectorAll('.games-row .game-item').forEach(g => g.classList.remove('active'));
 this.classList.add('active');
 });
