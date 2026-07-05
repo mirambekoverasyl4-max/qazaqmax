@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MAX GAMING TOOL</title>
+    <title>GAMING TOOL - Қазақша</title>
     <style>
         *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,sans-serif;-webkit-tap-highlight-color:transparent}
         body{background:#0a0a0a;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:16px;overflow:hidden}
@@ -146,6 +146,16 @@
             background:#ff3b30;box-shadow:0 0 20px rgba(255,59,48,0.7);cursor:pointer;
         }
 
+        /* ===== ТҮС ===== */
+        .түс-жол{
+            display:flex;justify-content:space-between;align-items:center;
+            background:#111;border:1px solid #222;border-radius:14px;padding:10px 16px;margin-bottom:12px;
+        }
+        .түс-жазу{color:#ddd;font-size:13px;font-weight:600;text-align:left}
+        .түс-жазу small{display:block;color:#555;font-size:9px;font-weight:400}
+        .түс-таңдау{-webkit-appearance:none;appearance:none;width:42px;height:42px;background:transparent;border:2px solid #333;border-radius:50%;cursor:pointer;padding:0}
+        .түс-таңдау::-webkit-color-swatch{border-radius:50%;border:none}
+
         /* ===== БАСТАУ ===== */
         .бастау-батырма{
             width:100%;padding:18px;
@@ -237,6 +247,12 @@
         <div class="функция-карта"><span class="функция-иконка">🔋</span><div class="функция-атау">Энергия<small>Power Save</small></div></div>
     </div>
 
+    <!-- ТҮС -->
+    <div class="түс-жол">
+        <div class="түс-жазу">🎨 Прицел түсі<small>Өзіңізге ұнаған түсті таңдаңыз</small></div>
+        <input type="color" class="түс-таңдау" id="түсТаңдау" value="#ff3b30" oninput="түсӨзгерту(this.value)">
+    </div>
+
     <!-- ҚОСҚЫШТАР -->
     <div class="қосқыш-жол">
         <div class="қосқыш-жазу">🎯 Прицел<small>Экран ортасында көрсету</small></div>
@@ -279,6 +295,12 @@
         }, 800);
     }, 2500);
 
+    // ===== ТҮС =====
+    function түсӨзгерту(түс) {
+        document.documentElement.style.setProperty('--түс', түс);
+        document.documentElement.style.setProperty('--көлеңке', түс + '99');
+    }
+
     // ===== ПРИЦЕЛ =====
     function прицелТоггл(күй) {
         document.getElementById('тірі-прицел').style.display = күй ? 'block' : 'none';
@@ -297,10 +319,12 @@
         var прицел = document.getElementById('прицел').checked ? '✅ Қосылған' : '❌ Өшірулі';
         var fps = document.getElementById('fps').checked ? '✅ 240 FPS' : '❌ 60 FPS';
         var көру = document.getElementById('көру').checked ? '✅ Қосылған' : '❌ Өшірулі';
+        var түс = document.getElementById('түсТаңдау').value;
 
         alert(
             '⚡ GAMING TOOL ⚡\n' +
             '═══════════════════\n' +
+            '🎨 Түс: ' + түс + '\n' +
             '🎯 Прицел: ' + прицел + '\n' +
             '⚡ FPS: ' + fps + '\n' +
             '🌐 360° көру: ' + көру + '\n' +
