@@ -1,422 +1,761 @@
 ---
 ---
 <!DOCTYPE html>
-<html>
+<html lang="kk">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>MAX</title>
-<style>
-* { margin:0; padding:0; box-sizing:border-box; font-family:-apple-system, sans-serif; }
-body { background:#000; color:#fff; height:100vh; overflow:hidden; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MAX PRO - iPhone 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-#splash {
-position:fixed;
-top:0; left:0; right:0; bottom:0;
-background:#000;
-display:flex;
-justify-content:center;
-align-items:center;
-z-index:999;
-transition:opacity 0.8s ease;
-}
-#splash.hide { opacity:0; pointer-events:none; }
-#splash h1 {
-font-size:70px;
-color:#0088FF;
-font-weight:bold;
-text-shadow:0 0 40px rgba(0,136,255,0.5);
-animation:pulse 1.5s ease-in-out infinite;
-}
-@keyframes pulse {
-0% { transform:scale(1); opacity:1; }
-50% { transform:scale(1.05); opacity:0.9; }
-100% { transform:scale(1); opacity:1; }
-}
+        body {
+            background: #0a0a0a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
 
-#app { display:none; flex-direction:column; height:100vh; background:#000; }
+        .бет {
+            display: none;
+        }
+        .бет.актив {
+            display: block;
+        }
 
-.header {
-padding:18px 20px 12px;
-border-bottom:2px solid #0088FF;
-background:linear-gradient(180deg, #001a33, #000);
-}
-.header h1 { color:#0088FF; font-size:32px; font-weight:bold; display:flex; align-items:center; gap:6px; }
-.header h1 span { color:#00D4FF; font-size:24px; }
-.header .sub { color:#00BFFF; font-size:16px; font-weight:600; margin-top:2px; }
-.header .game { color:#88DDFF; font-size:14px; margin-top:4px; }
-.header .time { color:#4488AA; font-size:12px; margin-top:3px; }
-.header .sc {
-color:#00BFFF; font-size:10px; font-weight:bold; float:right;
-background:#003366; padding:3px 12px; border-radius:12px;
-border:1px solid #0088FF; margin-top:-22px;
-}
+        .контейнер {
+            max-width: 420px;
+            width: 100%;
+            background: #141414;
+            border: 2px solid #2a2a2a;
+            border-radius: 28px;
+            padding: 20px 16px;
+            text-align: center;
+            max-height: 95vh;
+            overflow-y: auto;
+        }
 
-.games-row {
-display:flex;
-gap:12px;
-padding:10px 16px;
-background:#001122;
-border-bottom:1px solid #0088FF33;
-overflow-x:auto;
-}
-.games-row .game-item {
-background:#002244;
-padding:6px 14px;
-border-radius:16px;
-border:2px solid #0088FF55;
-color:#88DDFF;
-font-size:12px;
-font-weight:500;
-display:flex;
-align-items:center;
-gap:8px;
-cursor:pointer;
-transition:0.3s;
-flex-shrink:0;
-}
-.games-row .game-item.active {
-background:#004488;
-border-color:#00BFFF;
-color:#00D4FF;
-box-shadow:0 0 25px rgba(0,136,255,0.25);
-}
-.games-row .game-item .game-icon { font-size:18px; }
+        .контейнер::-webkit-scrollbar { width: 3px; }
+        .контейнер::-webkit-scrollbar-track { background: #111; border-radius: 10px; }
+        .контейнер::-webkit-scrollbar-thumb { background: #ff3b30; border-radius: 10px; }
 
-.content { flex:1; padding:12px 16px; overflow-y:auto; display:none; }
-.content.active { display:block; }
+        /* ===== MAX АНИМАЦИЯ ===== */
+        .макс-анимация {
+            font-size: 48px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 8px;
+            text-shadow: 0 0 40px rgba(255,59,48,0.5);
+            animation: максПульс 2s ease-in-out infinite;
+            margin-bottom: 10px;
+        }
+        .макс-анимация span {
+            color: #ff3b30;
+            text-shadow: 0 0 60px rgba(255,59,48,0.8);
+        }
+        @keyframes максПульс {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+        }
 
-/* ===== ОЙЫНҒА КІРУ БАТЫРМАСЫ ===== */
-.enter-game-btn {
-background:linear-gradient(135deg, #0088FF, #004488);
-padding:14px 0;
-border-radius:16px;
-color:#fff;
-border:none;
-font-size:18px;
-font-weight:bold;
-width:100%;
-cursor:pointer;
-margin:10px 0;
-box-shadow:0 0 30px rgba(0,136,255,0.3);
-transition:0.3s;
-text-align:center;
-}
-.enter-game-btn:active { transform:scale(0.97); }
+        .макс-асты {
+            color: #666;
+            font-size: 11px;
+            letter-spacing: 4px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #222;
+            padding-bottom: 12px;
+        }
+        .макс-асты span { color: #ff3b30; }
 
-.features { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-.feature {
-background:#001a33;
-padding:12px 12px;
-border-radius:12px;
-border-left:4px solid #0088FF;
-cursor:pointer;
-transition:0.3s;
-}
-.feature:active { transform:scale(0.97); }
-.feature .icon { font-size:18px; }
-.feature h4 { color:#00BFFF; font-size:13px; font-weight:600; margin-top:3px; }
-.feature p { color:#5599BB; font-size:10px; margin-top:2px; }
-.feature .status {
-float:right;
-color:#666;
-font-size:10px;
-font-weight:bold;
-background:#222;
-padding:2px 10px;
-border-radius:12px;
-border:1px solid #444;
-transition:0.3s;
-}
-.feature .status.on {
-color:#00D4FF;
-background:#003366;
-border-color:#0088FF55;
-}
+        /* ===== ПАРОЛЬ ===== */
+        .пароль-өріс {
+            width: 100%;
+            padding: 14px;
+            background: #111;
+            border: 2px solid #222;
+            border-radius: 14px;
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+            outline: none;
+            margin-bottom: 15px;
+            transition: 0.3s;
+        }
+        .пароль-өріс:focus {
+            border-color: #ff3b30;
+            box-shadow: 0 0 20px rgba(255,59,48,0.3);
+        }
+        .пароль-қате {
+            color: #ff4444;
+            font-size: 13px;
+            margin-bottom: 12px;
+            display: none;
+        }
+        .пароль-батырма {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(180deg, #ff3b30, #cc0000);
+            border: none;
+            border-radius: 14px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            cursor: pointer;
+            box-shadow: 0 6px 30px rgba(255,59,48,0.5);
+            text-transform: uppercase;
+            transition: 0.2s;
+        }
+        .пароль-батырма:active { transform: scale(0.96); }
 
-.feature-detail {
-display:none;
-background:#001a33;
-padding:14px;
-border-radius:12px;
-border-left:4px solid #0088FF;
-margin-top:10px;
-}
-.feature-detail.open { display:block; }
-.feature-detail h4 { color:#00BFFF; font-size:15px; margin-bottom:5px; }
-.feature-detail p { color:#88BBDD; font-size:13px; line-height:1.5; }
-.feature-detail .close-btn {
-float:right;
-color:#FF4444;
-cursor:pointer;
-font-size:18px;
-}
+        /* ===== ТҮС ТАҢДАУ ===== */
+        .түс-жол {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 14px;
+            padding: 10px 16px;
+            margin-bottom: 12px;
+        }
+        .түс-жазу {
+            color: #ddd;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: left;
+        }
+        .түс-жазу small {
+            display: block;
+            color: #555;
+            font-size: 9px;
+            font-weight: 400;
+        }
+        .түс-таңдау {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 42px;
+            height: 42px;
+            background: transparent;
+            border: 2px solid #333;
+            border-radius: 50%;
+            cursor: pointer;
+            padding: 0;
+        }
+        .түс-таңдау::-webkit-color-swatch {
+            border-radius: 50%;
+            border: none;
+        }
+        .түс-таңдау::-moz-color-swatch {
+            border-radius: 50%;
+            border: none;
+        }
 
-.bottom-nav {
-display:flex;
-background:#000;
-border-top:2px solid #0088FF44;
-padding:6px 0;
-}
-.bottom-nav div {
-flex:1;
-text-align:center;
-color:#4488AA;
-font-size:9px;
-cursor:pointer;
-transition:0.3s;
-padding:3px 0;
-}
-.bottom-nav .active { color:#00D4FF; font-weight:bold; }
+        /* ===== iPhone МОДЕЛЬДЕРІ ===== */
+        .модель-таңдау {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding: 4px 0 12px;
+            margin-bottom: 10px;
+            scrollbar-width: none;
+        }
+        .модель-таңдау::-webkit-scrollbar { display: none; }
 
-.crosshair-container {
-display:none;
-position:fixed;
-top:0; left:0; right:0; bottom:0;
-background:rgba(0,0,20,0.92);
-z-index:100;
-justify-content:center;
-align-items:center;
-}
-.crosshair-container.active { display:flex; }
-.crosshair { font-size:70px; color:#00BFFF; text-shadow:0 0 60px rgba(0,136,255,0.5); }
-.crosshair-close {
-position:absolute; top:20px; right:20px;
-color:#00BFFF; font-size:22px; cursor:pointer;
-background:#003366; padding:3px 14px; border-radius:30px;
-border:1px solid #0088FF55;
-}
+        .модель-батырма {
+            padding: 6px 14px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 20px;
+            color: #888;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .модель-батырма.белсенді {
+            border-color: #ff3b30;
+            color: #ff3b30;
+            box-shadow: 0 0 20px rgba(255, 59, 48, 0.3);
+        }
 
-.blue-bg { background:#004488; color:#fff; border:none; padding:12px; border-radius:12px; font-size:15px; font-weight:bold; width:100%; cursor:pointer; }
-.blue-bg:active { transform:scale(0.97); }
+        /* ===== НАСТРОЙКА КАРТАСЫ ===== */
+        .настройка-карта {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 14px;
+            padding: 14px;
+            margin-bottom: 12px;
+            text-align: left;
+        }
+        .настройка-атауы {
+            color: #ff3b30;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .настройка-атауы small {
+            color: #666;
+            font-size: 10px;
+            font-weight: 400;
+        }
+        .настройка-жол {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 0;
+            border-bottom: 1px solid #1a1a1a;
+        }
+        .настройка-жол:last-child { border-bottom: none; }
+        .настройка-белгі {
+            color: #888;
+            font-size: 11px;
+        }
+        .настройка-мән {
+            color: #fff;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .настройка-мән span { color: #00e676; }
 
-.monitor-item {
-display:flex; justify-content:space-between;
-padding:6px 0; border-bottom:1px solid #0088FF22;
-color:#88DDFF;
-font-size:14px;
-}
-.monitor-item span:last-child { color:#00BFFF; font-weight:bold; }
+        /* ===== ҚОСҚЫШ ===== */
+        .қосқыш-кіші {
+            position: relative;
+            width: 36px;
+            height: 20px;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+        .қосқыш-кіші input { opacity: 0; width: 0; height: 0; }
+        .сырғытпа-кіші {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: #2a2a2a;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+        .сырғытпа-кіші::before {
+            content: "";
+            position: absolute;
+            height: 14px;
+            width: 14px;
+            left: 3px;
+            bottom: 3px;
+            background: #666;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+        input:checked + .сырғытпа-кіші {
+            background: #ff3b30;
+            box-shadow: 0 0 15px rgba(255, 59, 48, 0.7);
+        }
+        input:checked + .сырғытпа-кіші::before {
+            transform: translateX(16px);
+            background: #fff;
+        }
 
-.profile-avatar { font-size:60px; color:#0088FF; }
-.profile-name { color:#fff; font-size:18px; font-weight:bold; }
-.profile-status { color:#00BFFF; }
-.profile-expire { color:#4488AA; font-size:12px; }
-.profile-support { background:#001a33; padding:12px; border-radius:12px; border:1px solid #0088FF33; text-align:left; }
-.profile-support p { color:#88DDFF; padding:3px 0; font-size:14px; }
-.profile-btn { background:#004488; padding:10px 30px; border-radius:25px; color:#fff; border:1px solid #0088FF; font-size:15px; cursor:pointer; margin-top:10px; }
-</style>
+        /* ===== МОДУЛЬДЕР ===== */
+        .модуль-тақырып {
+            color: #888;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin: 12px 0 8px;
+            text-align: left;
+            border-left: 3px solid #ff3b30;
+            padding-left: 10px;
+        }
+        .модуль-тор {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+        .модуль-карта {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 10px 8px;
+            text-align: center;
+            transition: 0.3s;
+            position: relative;
+        }
+        .модуль-карта.белсенді {
+            border-color: #ff3b30;
+            box-shadow: 0 0 20px rgba(255, 59, 48, 0.7);
+        }
+        .модуль-карта.белсенді::after {
+            content: '✓';
+            position: absolute;
+            top: 4px;
+            right: 8px;
+            color: #ff3b30;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .модуль-атауы {
+            color: #ddd;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .модуль-атауы small {
+            display: block;
+            color: #555;
+            font-size: 8px;
+            font-weight: 400;
+        }
+        .модуль-иконка { font-size: 18px; display: block; margin-bottom: 2px; }
+
+        /* ===== БАСТАУ ===== */
+        .бастау-батырма {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(180deg, #ff3b30, #cc0000);
+            border: none;
+            border-radius: 16px;
+            color: #fff;
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: 4px;
+            cursor: pointer;
+            margin-top: 12px;
+            box-shadow: 0 6px 40px rgba(255, 59, 48, 0.7);
+            text-transform: uppercase;
+            transition: 0.2s;
+            position: relative;
+        }
+        .бастау-батырма::after {
+            content: '▶';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+        }
+        .бастау-батырма:active { transform: scale(0.96); }
+
+        .аяқтама {
+            color: #333;
+            font-size: 8px;
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+        .аяқтама span { color: #ff3b30; }
+
+        /* ===== ТІРІ ПРИЦЕЛ ===== */
+        #тірі-прицел {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 999999;
+            display: none;
+        }
+        #тірі-прицел .нүкте {
+            width: 5px;
+            height: 5px;
+            background: #ff3b30;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px rgba(255, 59, 48, 0.7);
+        }
+        #тірі-прицел .сызық {
+            background: #ff3b30;
+            position: absolute;
+            box-shadow: 0 0 10px rgba(255, 59, 48, 0.7);
+        }
+        #тірі-прицел .сызық.жоғары { width: 2px; height: 12px; top: 50%; left: 50%; transform: translate(-50%, -100%); }
+        #тірі-прицел .сызық.төмен { width: 2px; height: 12px; top: 50%; left: 50%; transform: translate(-50%, 0%); }
+        #тірі-прицел .сызық.сол { height: 2px; width: 12px; top: 50%; left: 50%; transform: translate(-100%, -50%); }
+        #тірі-прицел .сызық.оң { height: 2px; width: 12px; top: 50%; left: 50%; transform: translate(0%, -50%); }
+
+        /* ===== ХЕДШОТ ===== */
+        .хедшот-индикатор {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 14px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+        .хедшот-пайыз {
+            font-size: 36px;
+            font-weight: 900;
+            color: #ff3b30;
+            text-shadow: 0 0 40px rgba(255, 59, 48, 0.7);
+            font-family: 'Courier New', monospace;
+        }
+        .хедшот-пайыз small { font-size: 16px; color: #888; }
+        .хедшот-жолақ {
+            width: 100%;
+            height: 6px;
+            background: #2a2a2a;
+            border-radius: 10px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+        .хедшот-толтыру {
+            height: 100%;
+            width: 95%;
+            background: linear-gradient(90deg, #ff3b30, #ff6b6b);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 59, 48, 0.7);
+            animation: жарқыл 1.5s ease-in-out infinite;
+        }
+        @keyframes жарқыл {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .хедшот-статус { color: #888; font-size: 11px; margin-top: 6px; }
+        .хедшот-статус span { color: #ff3b30; font-weight: bold; }
+
+        /* ===== FPS ===== */
+        .fps-индикатор {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 6px 12px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .fps-сан {
+            font-size: 22px;
+            font-weight: 900;
+            color: #ff4444;
+            font-family: 'Courier New', monospace;
+        }
+        .fps-жазу { font-size: 11px; color: #888; letter-spacing: 1px; }
+        .fps-жазу small { display: block; color: #555; font-size: 9px; }
+
+        /* ===== ПРИЦЕЛ ҮЛГІСІ ===== */
+        .прицел-нүкте {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            margin: 6px auto 10px;
+        }
+        .прицел-нүкте .нүкте-үлгі {
+            width: 10px;
+            height: 10px;
+            background: #ff3b30;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(255, 59, 48, 0.7);
+        }
+        .прицел-нүкте .сызық-үлгі {
+            width: 14px;
+            height: 2px;
+            background: #ff3b30;
+            box-shadow: 0 0 10px rgba(255, 59, 48, 0.7);
+        }
+        .прицел-нүкте .сызық-үлгі.верт {
+            width: 2px;
+            height: 14px;
+        }
+
+        .ескерту {
+            background: rgba(255, 59, 48, 0.08);
+            border: 1px solid rgba(255, 59, 48, 0.15);
+            border-radius: 10px;
+            padding: 6px;
+            margin-bottom: 12px;
+            color: #ff6b6b;
+            font-size: 9px;
+        }
+
+        .жыл-белгісі {
+            display: inline-block;
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 4px 14px;
+            font-size: 10px;
+            color: #888;
+            border: 1px solid #333;
+            margin-bottom: 10px;
+        }
+        .жыл-белгісі span { color: #ff3b30; }
+    </style>
 </head>
 <body>
 
-<!-- ===== SPLASH SCREEN ===== -->
-<div id="splash"><h1>MAX</h1></div>
+    <!-- ===== ТІРІ ПРИЦЕЛ ===== -->
+    <div id="тірі-прицел">
+        <div class="нүкте"></div>
+        <div class="сызық жоғары"></div>
+        <div class="сызық төмен"></div>
+        <div class="сызық сол"></div>
+        <div class="сызық оң"></div>
+    </div>
 
-<!-- ===== НЕГІЗГІ ҚОСЫМША ===== -->
-<div id="app">
+    <!-- ===== БЕТ 1: ПАРОЛЬ ===== -->
+    <div id="бет-1" class="бет актив">
+        <div class="контейнер">
+            <div class="макс-анимация">MAX <span>PRO</span></div>
+            <div class="макс-асты">⚡ <span>iPhone 2026</span> • 20 МОДУЛЬ</div>
+            
+            <input type="password" class="пароль-өріс" id="пароль" placeholder="Парольді енгізіңіз" autofocus>
+            <div class="пароль-қате" id="қате">❌ Қате пароль! Қайта тексеріңіз.</div>
+            <button class="пароль-батырма" onclick="кіру()">КІРУ</button>
+            
+            <div class="аяқтама" style="margin-top:15px;color:#333">⚡ <span>MAX PRO</span> v7.0</div>
+        </div>
+    </div>
 
-<!-- ЖОҒАРҒЫ БӨЛІК -->
-<div class="header">
-<h1>MAX <span>⚡</span></h1>
-<div class="sub">MAX Space</div>
-<div class="game">Game Space</div>
-<div style="margin-top:5px;">🎮 Free Fire</div>
-<div class="time">Ойын уақыты: 0м</div>
-<div class="sc">SC</div>
-</div>
+    <!-- ===== БЕТ 2: НЕГІЗГІ ===== -->
+    <div id="бет-2" class="бет">
+        <div class="контейнер">
+            
+            <div class="макс-анимация" style="font-size:28px;">MAX <span>PRO</span></div>
+            <div class="макс-асты">⚡ <span>iPhone 2026</span> • 20 МОДУЛЬ</div>
 
-<!-- ОЙЫНДАР ҚАТАРЫ -->
-<div class="games-row">
-<div class="game-item active"><span class="game-icon">🔥</span> Free Fire</div>
-<div class="game-item"><span class="game-icon">⚔️</span> PUBG Mobile</div>
-<div class="game-item"><span class="game-icon">🎯</span> Call of Duty</div>
-<div class="game-item"><span class="game-icon">💀</span> Garena FF</div>
-</div>
+            <!-- ===== ТҮС ТАҢДАУ ===== -->
+            <div class="түс-жол">
+                <div class="түс-жазу">
+                    🎨 Прицел түсі
+                    <small>Өзіңізге ұнаған түсті таңдаңыз</small>
+                </div>
+                <input type="color" class="түс-таңдау" id="түсТаңдау" value="#ff3b30" oninput="түсӨзгерту(this.value)">
+            </div>
 
-<!-- ===== БАСТЫ БЕТ ===== -->
-<div class="content active" id="tab-home">
-<h3 style="color:#00BFFF; font-size:15px; margin-bottom:10px;">⚙️ ФУНКЦИЯЛАР</h3>
+            <div class="ескерту">⚠️ Бұл тек көрнекі үлгі! Нақты ойын ішінде жұмыс істемейді.</div>
 
-<!-- ОЙЫНҒА КІРУ БАТЫРМАСЫ (ДАУЫСПЕН) -->
-<button class="enter-game-btn" onclick="playSound(); enterGame();">🎮 ОЙЫНҒА КІРУ</button>
+            <!-- ===== iPhone МОДЕЛЬДЕРІ ===== -->
+            <div class="модель-таңдау" id="модельТаңдау">
+                <button class="модель-батырма белсенді" onclick="модельТаңда('iphone16', this)">📱 iPhone 16</button>
+                <button class="модель-батырма" onclick="модельТаңда('iphone15', this)">📱 iPhone 15</button>
+                <button class="модель-батырма" onclick="модельТаңда('iphone14', this)">📱 iPhone 14</button>
+                <button class="модель-батырма" onclick="модельТаңда('iphone13', this)">📱 iPhone 13</button>
+                <button class="модель-батырма" onclick="модельТаңда('iphone12', this)">📱 iPhone 12</button>
+                <button class="модель-батырма" onclick="модельТаңда('iphone11', this)">📱 iPhone 11</button>
+            </div>
 
-<div class="features">
-<div class="feature" onclick="playSound(); toggleFeature('detail1')">
-<span class="icon">⚡</span>
-<span class="status" id="status1">ӨШІРУЛІ</span>
-<h4>Жылдамдық ядросы</h4>
-<p>CPU/RAM оңтайландыру</p>
-</div>
-<div class="feature" onclick="playSound(); toggleFeature('detail2')">
-<span class="icon">👆</span>
-<span class="status" id="status2">ӨШІРУЛІ</span>
-<h4>Супер сенсор</h4>
-<p>Жауап уақытын арттыру</p>
-</div>
-<div class="feature" onclick="playSound(); toggleFeature('detail3')">
-<span class="icon">📺</span>
-<span class="status" id="status3">ӨШІРУЛІ</span>
-<h4>Кадр синхроны</h4>
-<p>FPS тұрақтандыру</p>
-</div>
-<div class="feature" onclick="playSound(); toggleFeature('detail4')">
-<span class="icon">🎯</span>
-<span class="status" id="status4">ӨШІРУЛІ</span>
-<h4>Дәлдік басқару</h4>
-<p>Сенсор дәлдігін арттыру</p>
-</div>
-<div class="feature" onclick="playSound(); toggleFeature('detail5')">
-<span class="icon">🔥</span>
-<span class="status" id="status5">ӨШІРУЛІ</span>
-<h4>Ойын режимі</h4>
-<p>Барлығын бірден қосу</p>
-</div>
-<div class="feature" onclick="playSound(); toggleFeature('detail6')">
-<span class="icon">🛡️</span>
-<span class="status" id="status6">ӨШІРУЛІ</span>
-<h4>Желі оңтайландыру</h4>
-<p>Пингті төмендету</p>
-</div>
-</div>
+            <!-- ===== НАСТРОЙКА КАРТАСЫ ===== -->
+            <div class="настройка-карта" id="настройкаКарта">
+                <div class="настройка-атауы">
+                    <span id="модельАтауы">iPhone 16 Pro Max</span>
+                    <small>2026 настройка</small>
+                </div>
+                <div class="настройка-жол">
+                    <span class="настройка-белгі">🎯 Прицел түсі</span>
+                    <span class="настройка-мән" id="н_прицел">Қызыл <span>●</span></span>
+                </div>
+                <div class="настройка-жол">
+                    <span class="настройка-белгі">🚀 FPS лимит</span>
+                    <span class="настройка-мән" id="н_fps">240 <span>FPS</span></span>
+                </div>
+                <div class="настройка-жол">
+                    <span class="настройка-белгі">🌐 Көру бұрышы</span>
+                    <span class="настройка-мән" id="н_көру">360° <span>Толық</span></span>
+                </div>
+                <div class="настройка-жол">
+                    <span class="настройка-белгі">⚡ Жиілік</span>
+                    <span class="настройка-мән" id="н_жиілік">120 <span>Гц</span></span>
+                </div>
+                <div class="настройка-жол">
+                    <span class="настройка-белгі">🎯 Хедшот дәлдігі</span>
+                    <span class="настройка-мән" id="н_хедшот">95 <span>%</span></span>
+                </div>
+                <div class="настройка-жол">
+                    <span class="настройка-белгі">🛡️ Анти-лаг</span>
+                    <span class="настройка-мән" id="н_антилаг">✅ <span>Қосылған</span></span>
+                </div>
+            </div>
 
-<!-- ТОЛЫҚ СИПАТТАМАЛАР -->
-<div id="detail1" class="feature-detail"><span class="close-btn" onclick="closeDetail('detail1')">✕</span><h4>⚡ Жылдамдық ядросы</h4><p>CPU/RAM оңтайландыру арқылы жүйенің жылдамдығын арттырады.</p></div>
-<div id="detail2" class="feature-detail"><span class="close-btn" onclick="closeDetail('detail2')">✕</span><h4>👆 Супер сенсор</h4><p>Сенсорлық жауап уақытын арттырып, әрекеттеріңізді тездетеді.</p></div>
-<div id="detail3" class="feature-detail"><span class="close-btn" onclick="closeDetail('detail3')">✕</span><h4>📺 Кадр синхроны</h4><p>Экран жаңарту жиілігін тұрақтандырып, FPS көрсеткішін жоғарылатады.</p></div>
-<div id="detail4" class="feature-detail"><span class="close-btn" onclick="closeDetail('detail4')">✕</span><h4>🎯 Дәлдік басқару</h4><p>Сенсор дәлдігін арттырып, көздеу және басқаруды жақсартады.</p></div>
-<div id="detail5" class="feature-detail"><span class="close-btn" onclick="closeDetail('detail5')">✕</span><h4>🔥 Ойын режимі</h4><p>Барлық функцияларды бірден қосып, максималды өнімділік береді.</p></div>
-<div id="detail6" class="feature-detail"><span class="close-btn" onclick="closeDetail('detail6')">✕</span><h4>🛡️ Желі оңтайландыру</h4><p>Интернет байланысын тұрақтандырып, пингті төмендетеді.</p></div>
-</div>
+            <!-- ===== ХЕДШОТ ===== -->
+            <div class="хедшот-индикатор">
+                <div class="хедшот-пайыз">95<small>%</small></div>
+                <div class="хедшот-жолақ"><div class="хедшот-толтыру"></div></div>
+                <div class="хедшот-статус">🎯 Хедшот: <span>ЭЛИТАРЛЫ</span></div>
+            </div>
 
-<!-- ===== ФУНКЦИЯ БЕТІ ===== -->
-<div class="content" id="tab-feature">
-<h3 style="color:#00BFFF; font-size:15px; margin-bottom:10px;">🔧 БАРЛЫҚ ФУНКЦИЯЛАР</h3>
-<div class="feature-detail open"><h4>🎯 Дәлдік жауап жүйесі VIP</h4><p>Сенсорлық басқарудың тұрақтылығын арттырады және тегіс көздеу тәжірибесін ұсынады.</p></div>
-<div class="feature-detail open"><h4>⚡ MAX Қозғалтқышы</h4><p>Жүйенің жалпы жауап беруін жақсартады, қажетсіз фондық жүктемені азайтады.</p></div>
-<div class="feature-detail open"><h4>👆 Сенсорды жеделдету</h4><p>Сенсорлық жауапты жақсартады және тегіс басқаруды қамтамасыз етеді.</p></div>
-<div class="feature-detail open"><h4>📺 Экран синхроны VIP</h4><p>Экран жаңартуын синхрондап, тегіс анимациялар мен тұрақты кадр ағымын береді.</p></div>
-<div class="feature-detail open"><h4>🎯 Сезімталдық зертханасы</h4><p>Сенсорлық тәжірибе мен тегіс әрекеттесуді қамтамасыз етеді.</p></div>
-<div class="feature-detail open"><h4>🔄 Қозғалыс жауабы</h4><p>Тегіс сенсорлық әрекеттесу мен жүйе әрекетін қамтамасыз етеді.</p></div>
-</div>
+            <!-- ===== FPS ===== -->
+            <div class="fps-индикатор">
+                <span class="fps-сан" id="fpsСан">240</span>
+                <div class="fps-жазу">FPS <small>Кадр/сек</small></div>
+            </div>
 
-<!-- ===== ПРИЦЕЛ БЕТІ ===== -->
-<div class="content" id="tab-visual">
-<h3 style="color:#00BFFF; font-size:15px; margin-bottom:10px;">🎯 ПРИЦЕЛ</h3>
-<p style="color:#5599BB; margin-bottom:12px;">Көздеуіш ату кезінде жел бағытын анықтауға көмектеседі</p>
-<button class="blue-bg" onclick="playSound(); showCrosshair();">ПРИЦЕЛДІ ҚОСУ</button>
-<div style="margin-top:12px; background:#001a33; padding:12px; border-radius:12px; border:1px solid #0088FF33;">
-<p style="color:#00BFFF; font-weight:bold;">📊 ӨНІМДІЛІК МОНИТОРЫ</p>
-<div class="monitor-item"><span>FPS</span><span>120</span></div>
-<div class="monitor-item"><span>CPU</span><span>45%</span></div>
-<div class="monitor-item"><span>RAM</span><span>2.1/4.0 ГБ</span></div>
-<div class="monitor-item"><span>Батарея</span><span>67%</span></div>
-<div class="monitor-item"><span>Температура</span><span>36.6°C</span></div>
-</div>
-</div>
+            <!-- ===== ПРИЦЕЛ ҮЛГІСІ ===== -->
+            <div class="прицел-нүкте">
+                <div class="сызық-үлгі"></div>
+                <div class="нүкте-үлгі"></div>
+                <div class="сызық-үлгі"></div>
+                <div class="сызық-үлгі верт"></div>
+                <div class="сызық-үлгі верт"></div>
+            </div>
 
-<!-- ===== ПРОФИЛЬ БЕТІ ===== -->
-<div class="content" id="tab-profile">
-<center style="padding-top:8px;">
-<div class="profile-avatar">👤</div>
-<p class="profile-name">MAX Pro</p>
-<p class="profile-status">🔵 PRO / PRO</p>
-<p class="profile-expire">Мерзім: 2026-07-01 18:48</p>
-<div class="profile-support" style="margin-top:12px;">
-<p style="color:#00BFFF; font-weight:bold;">📢 БІЗДІ ҚОЛДАҢЫЗ!</p>
-<p>▶ TikTok арнамызға жазылыңыз</p>
-<p>▶ WhatsApp каналына қосылыңыз</p>
-</div>
-<button class="profile-btn" onclick="playSound();">ЖАҢАРТУ ТЕКСЕРУ</button>
-</center>
-</div>
+            <!-- ===== 20 МОДУЛЬ ===== -->
+            <div class="модуль-тақырып">📱 НЕГІЗГІ МОДУЛЬДЕР</div>
+            <div class="модуль-тор">
+                <div class="модуль-карта" id="m1"><span class="модуль-иконка">🎯</span><div class="модуль-атауы">Хедшот 95%<small>Басқа дәлдік</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c1" onchange="тоггл('m1',this.checked)"><span class="сырғытпа-кіші"></span></label></div>
+                <div class="модуль-карта" id="m2"><span class="модуль-иконка">🤖</span><div class="модуль-атауы">Аймбот<small>Авто бағыттау</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c2" onchange="тоггл('m2',this.checked)"><span class="сырғытпа-кіші"></span></label></div>
+                <div class="модуль-карта" id="m3"><span class="модуль-иконка">🎯</span><div class="модуль-атауы">Прицел<small>Экран ортасы</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c3" onchange="прицелТоггл(this.checked)"><span class="сырғытпа-кіші"></span></label></div>
+                <div class="модуль-карта" id="m4"><span class="модуль-иконка">🚀</span><div class="модуль-атауы">240 FPS<small>Ultra жылдам</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c4" checked onchange="fpsТоггл(this.checked)"><span class="сырғытпа-кіші"></span></label></div>
+            </div>
 
-<!-- ТӨМЕНГІ МӘЗІР -->
-<div class="bottom-nav">
-<div class="active" onclick="playSound(); switchTab('home')">🏠<br>Басты</div>
-<div onclick="playSound(); switchTab('feature')">⚙️<br>Функция</div>
-<div onclick="playSound(); switchTab('visual')">🎯<br>Прицел</div>
-<div onclick="playSound(); switchTab('profile')">👤<br>Профиль</div>
-</div>
+            <div class="модуль-тақырып">👁️ КӨРУ МОДУЛЬДЕРІ</div>
+            <div class="модуль-тор">
+                <div class="модуль-карта" id="m5"><span class="модуль-иконка">🌐</span><div class="модуль-атауы">360° көру<small>Толық шолу</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c5" onchange="тоггл('m5',this.checked)"><span class="сырғытпа-кіші"></span></label></div>
+                <div class="модуль-карта" id="m6"><span class="модуль-иконка">🔭</span><div class="модуль-атауы">Қашықтық көру<small>Ұзаққа көру</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c6" onchange="тоггл('m6',this.checked)"><span class="сырғытпа-кіші"></span></label></div>
+                <div class="модуль-карта" id="m7"><span class="модуль-иконка">👀</span><div class="модуль-атауы">Жарықтылық<small>Түнгі көру</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c7" onchange="тоггл('m7',this.checked)"><span class="сырғытпа-кіші"></span></label></div>
+                <div class="модуль-карта" id="m8"><span class="модуль-иконка">🎨</span><div class="модуль-атауы">Түс фильтрі<small>Контраст</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c8" onchange="тоггл('m8',this.checked)"><span class="сырғытпа-кіші"></span></label></div>
+            </div>
 
-</div>
+            <div class="модуль-тақырып">⚡ ЖЫЛДАМДЫҚ МОДУЛЬДЕРІ</div>
+            <div class="модуль-тор">
+                <div class="модуль-карта" id="m9"><span class="модуль-иконка">🏃</span><div class="модуль-атауы">Жылдамдық<small>Жылжу</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c9" onchange="тоггл('m9',this.checked)"><span class="сырғытпа-кіші"></span></label></div>
+                <div class="модуль-карта" id="m10"><span class="модуль-иконка">⚡</span><div class="модуль-атауы">120 Гц<small>Тегіс экран</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c10" onchange="тоггл('m10',this.checked)"><span class="сырғытпа-кіші"></span></label></div>
+                <div class="модуль-карта" id="m11"><span class="модуль-иконка">🔄</span><div class="модуль-атауы">Тез айналу<small>Spin</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c11" onchange="тоггл('m11',this.checked)"><span class="сырғытпа-кіші"></span></label></div>
+                <div class="модуль-карта" id="m12"><span class="модуль-иконка">📈</span><div class="модуль-атауы">Реакция<small>Жылдам жауап</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c12" onchange="тоггл('m12',this.checked)"><span class="сырғытпа-кіші"></span></label></div>
+            </div>
 
-<!-- ПРИЦЕЛ -->
-<div id="crosshair" class="crosshair-container" onclick="hideCrosshair()">
-<div class="crosshair">✚</div>
-<div class="crosshair-close" onclick="event.stopPropagation(); hideCrosshair();">✕</div>
-</div>
+            <div class="модуль-тақырып">🛡️ ҚОРҒАНЫС МОДУЛЬДЕРІ</div>
+            <div class="модуль-тор">
+                <div class="модуль-карта" id="m13"><span class="модуль-иконка">🛡️</span><div class="модуль-атауы">Анти-лаг<small>Кешігуді азайту</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c13" onchange="тоггл('m13',this.checked)"><span class="сырғытпа-кіші"></span></label></div>
+                <div class="модуль-карта" id="m14"><span class="модуль-иконка">🛡️</span><div class="модуль-атауы">Анти-бан<small>Қауіпсіздік</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c14" onchange="тоггл('m14',this.checked)"><span class="сырғытпа-кіші"></span></label></div>
+                <div class="модуль-карта" id="m15"><span class="модуль-иконка">🔒</span><div class="модуль-атауы">Жасыру<small>Stealth</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c15" onchange="тоггл('m15',this.checked)"><span class="сырғытпа-кіші"></span></label></div>
+                <div class="модуль-карта" id="m16"><span class="модуль-иконка">🔄</span><div class="модуль-атауы">VPN режимі<small>IP жасыру</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c16" onchange="тоггл('m16',this.checked)"><span class="сырғытпа-кіші"></span></label></div>
+            </div>
 
-<!-- ===== JAVASCRIPT ===== -->
-<script>
-// === ДАУЫС (SOUND) ===
-function playSound() {
-try {
-var audio = new Audio('data:audio/wav;base64,UklGRlAAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAABAAkACQAJAAkACQAJAAkACQAJAAkACQAJAAkACQAJAAkACQAJAAkACQAJAAkACQAJAA==');
-audio.volume = 0.3;
-audio.play();
-} catch(e) {}
-}
+            <div class="модуль-тақырып">🔧 ҚОСЫМША МОДУЛЬДЕР</div>
+            <div class="модуль-тор">
+                <div class="модуль-карта" id="m17"><span class="модуль-иконка">🎮</span><div class="модуль-атауы">Аим ассист<small>Көмекші</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c17" onchange="тоггл('m17',this.checked)"><span class="сырғытпа-кіші"></span></label></div>
+                <div class="модуль-карта" id="m18"><span class="модуль-иконка">📊</span><div class="модуль-атауы">Статистика<small>Көрсеткіш</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c18" onchange="тоггл('m18',this.checked)"><span class="сырғытпа-кіші"></span></label></div>
+                <div class="модуль-карта" id="m19"><span class="модуль-иконка">💾</span><div class="модуль-атауы">Жадты тазалау<small>RAM Boost</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c19" onchange="тоггл('m19',this.checked)"><span class="сырғытпа-кіші"></span></label></div>
+                <div class="модуль-карта" id="m20"><span class="модуль-иконка">🔋</span><div class="модуль-атауы">Энергия<small>Power Save</small></div><label class="қосқыш-кіші"><input type="checkbox" id="c20" onchange="тоггл('m20',this.checked)"><span class="сырғытпа-кіші"></span></label></div>
+            </div>
 
-// === ОЙЫНҒА КІРУ ===
-function enterGame() {
-alert('🎮 Ойынға кіру...\nFree Fire ашылуда');
-// Нақты ойынды ашу үшін мына жерге сілтеме қоюға болады
-// window.location.href = 'freefire://';
-}
+            <!-- ===== БАСТАУ ===== -->
+            <button class="бастау-батырма" onclick="бастау()">БАСТАУ</button>
 
-// === SPLASH SCREEN ===
-setTimeout(function() {
-document.getElementById('splash').classList.add('hide');
-setTimeout(function() {
-document.getElementById('app').style.display = 'flex';
-}, 400);
-}, 2500);
+            <div class="аяқтама">⚡ <span>MAX PRO</span> v7.0 • 20 модуль • <span>iPhone 2026</span></div>
+        </div>
+    </div>
 
-// === БЕТТЕР ===
-function switchTab(tabId) {
-document.querySelectorAll('.content').forEach(el => el.classList.remove('active'));
-document.getElementById('tab-' + tabId).classList.add('active');
-document.querySelectorAll('.bottom-nav div').forEach(el => el.classList.remove('active'));
-event.target.closest('div').classList.add('active');
-}
+    <script>
+        // ===== ПАРОЛЬ =====
+        function кіру() {
+            var пароль = document.getElementById('пароль').value.trim();
+            if (пароль.toUpperCase() === "MAX2026") {
+                document.getElementById('бет-1').classList.remove('актив');
+                document.getElementById('бет-2').classList.add('актив');
+                document.getElementById('қате').style.display = 'none';
+            } else {
+                document.getElementById('қате').style.display = 'block';
+            }
+        }
 
-// === ФУНКЦИЯ ===
-function toggleFeature(detailId) {
-var detail = document.getElementById(detailId);
-var statusEl = detail.previousElementSibling.querySelector('.status');
-if (statusEl) {
-if (statusEl.textContent === 'ӨШІРУЛІ') {
-statusEl.textContent = 'ҚОСУЛЫ';
-statusEl.className = 'status on';
-} else {
-statusEl.textContent = 'ӨШІРУЛІ';
-statusEl.className = 'status';
-}
-}
-detail.classList.toggle('open');
-}
+        document.getElementById('пароль').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') кіру();
+        });
 
-function closeDetail(detailId) {
-document.getElementById(detailId).classList.remove('open');
-}
+        // ===== ТҮС ӨЗГЕРТУ =====
+        function түсӨзгерту(түс) {
+            document.documentElement.style.setProperty('--түс', түс);
+            document.documentElement.style.setProperty('--көлеңке', түс + '99');
+            
+            // Барлық элементтердің түсін өзгерту
+            document.querySelectorAll('.тақырып span, .асты span, .модель-батырма.белсенді, .настройка-атауы, .хедшот-статус span, .макс-анимация span, .макс-асты span, .аяқтама span, .бастау-батырма, .пароль-батырма, .модуль-карта.белсенді, .қосқыш-кіші input:checked + .сырғытпа-кіші').forEach(function(el) {
+                el.style.color = түс;
+            });
+            
+            // FPS түсін өзгерту
+            var fpsҚос = document.getElementById('c4').checked;
+            if (fpsҚос) {
+                document.getElementById('fpsСан').style.color = түс;
+                document.getElementById('fpsСан').style.textShadow = '0 0 30px ' + түс + '99';
+            }
+        }
 
-// === ПРИЦЕЛ ===
-function showCrosshair() {
-document.getElementById('crosshair').classList.add('active');
-}
-function hideCrosshair() {
-document.getElementById('crosshair').classList.remove('active');
-}
+        // ===== iPhone МОДЕЛЬДЕРІ =====
+        var модельДерек = {
+            iphone16: { атау: 'iPhone 16 Pro Max', прицел: 'Қызыл ●', fps: '240 FPS', көру: '360° Толық', жиілік: '120 Гц', хедшот: '95 %', антилаг: '✅ Қосылған' },
+            iphone15: { атау: 'iPhone 15 Pro', прицел: 'Көк ●', fps: '240 FPS', көру: '360° Толық', жиілік: '120 Гц', хедшот: '90 %', антилаг: '✅ Қосылған' },
+            iphone14: { атау: 'iPhone 14 Pro', прицел: 'Жасыл ●', fps: '120 FPS', көру: '270° Кең', жиілік: '90 Гц', хедшот: '85 %', антилаг: '✅ Қосылған' },
+            iphone13: { атау: 'iPhone 13 Pro', прицел: 'Сары ●', fps: '120 FPS', көру: '240° Орта', жиілік: '90 Гц', хедшот: '80 %', антилаг: '⚠️ Шектеулі' },
+            iphone12: { атау: 'iPhone 12 Pro', прицел: 'Қызғылт ●', fps: '90 FPS', көру: '180° Стандарт', жиілік: '60 Гц', хедшот: '75 %', антилаг: '⚠️ Шектеулі' },
+            iphone11: { атау: 'iPhone 11 Pro', прицел: 'Ақ ●', fps: '60 FPS', көру: '180° Стандарт', жиілік: '60 Гц', хедшот: '70 %', антилаг: '❌ Өшірулі' }
+        };
 
-// === ОЙЫНДАР ===
-document.querySelectorAll('.games-row .game-item').forEach(item => {
-item.addEventListener('click', function() {
-playSound();
-document.querySelectorAll('.games-row .game-item').forEach(g => g.classList.remove('active'));
-this.classList.add('active');
-});
-});
-</script>
+        function модельТаңда(модель, батырма) {
+            document.querySelectorAll('.модель-батырма').forEach(function(b) { b.classList.remove('белсенді'); });
+            батырма.classList.add('белсенді');
+            var д = модельДерек[модель];
+            document.getElementById('модельАтауы').textContent = д.атау;
+            document.getElementById('н_прицел').innerHTML = д.прицел;
+            document.getElementById('н_fps').innerHTML = д.fps;
+            document.getElementById('н_көру').innerHTML = д.көру;
+            document.getElementById('н_жиілік').innerHTML = д.жиілік;
+            document.getElementById('н_хедшот').innerHTML = д.хедшот;
+            document.getElementById('н_антилаг').innerHTML = д.антилаг;
+        }
 
+        // ===== МОДУЛЬ =====
+        function тоггл(id, күй) {
+            var карта = document.getElementById(id);
+            if (күй) { карта.classList.add('белсенді'); } 
+            else { карта.classList.remove('белсенді'); }
+        }
+
+        function прицелТоггл(күй) {
+            var карта = document.getElementById('m3');
+            var прицел = document.getElementById('тірі-прицел');
+            if (күй) { карта.classList.add('белсенді'); прицел.style.display = 'block'; } 
+            else { карта.classList.remove('белсенді'); прицел.style.display = 'none'; }
+        }
+
+        function fpsТоггл(күй) {
+            var карта = document.getElementById('m4');
+            var сан = document.getElementById('fpsСан');
+            var түс = document.getElementById('түсТаңдау').value;
+            if (күй) {
+                карта.classList.add('белсенді');
+                сан.textContent = '240';
+                сан.style.color = түс;
+                сан.style.textShadow = '0 0 30px ' + түс + '99';
+            } else {
+                карта.classList.remove('белсенді');
+                сан.textContent = '60';
+                сан.style.color = '#ff4444';
+                сан.style.textShadow = 'none';
+            }
+        }
+
+        // ===== БАСТАУ =====
+        function бастау() {
+            var түс = document.getElementById('түсТаңдау').value;
+            alert(
+                '⚡ MAX PRO ⚡\n' +
+                '═══════════════════\n' +
+                '🎨 Түс: ' + түс + '\n' +
+                '📱 20 модуль қосылды\n' +
+                '═══════════════════\n' +
+                '🎮 Free Fire іске қосылуда...'
+            );
+            window.location.href = "freefire://";
+            setTimeout(function() {
+                window.location.href = "intent://apps/#Intent;scheme=android-app;package=com.dts.freefireth;end";
+            }, 150);
+        }
+    </script>
 </body>
 </html>
